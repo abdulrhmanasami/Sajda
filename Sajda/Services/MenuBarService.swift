@@ -31,14 +31,18 @@ class MenuBarService: ObservableObject {
 
     private var _dateFormatter: DateFormatter?
     private var _lastFormatConfig: String = ""
+    /// R6-1: Stored timezone for manual location support — survives formatter recreation.
+    private var _storedTimeZone: TimeZone = .current
 
     var dateFormatter: DateFormatter {
-        let configKey = "\(use24HourFormat)-\(useMinimalMenuBarText)-\(languageIdentifier)-\(TimeZone.current.identifier)"
+        let configKey = "\(use24HourFormat)-\(useMinimalMenuBarText)-\(languageIdentifier)-\(_storedTimeZone.identifier)"
         if let cached = _dateFormatter, _lastFormatConfig == configKey {
             return cached
         }
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: languageIdentifier)
+        // R6-1: Apply stored timezone (could be manual location's, not .current)
+        formatter.timeZone = _storedTimeZone
         if useMinimalMenuBarText {
             formatter.dateFormat = use24HourFormat ? "H.mm" : "h.mm"
         } else {
@@ -97,6 +101,8 @@ class MenuBarService: ObservableObject {
 
     /// Updates the formatter's timezone (for manual location support).
     func setTimeZone(_ tz: TimeZone) {
+        // R6-1: Store timezone so newly created formatters also get it
+        _storedTimeZone = tz
         _dateFormatter?.timeZone = tz
         _lastFormatConfig = "" // Force re-creation on next access
     }

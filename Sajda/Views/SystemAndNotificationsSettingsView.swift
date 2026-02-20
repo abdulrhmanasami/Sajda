@@ -117,7 +117,7 @@ struct SystemAndNotificationsSettingsView: View {
                                     .fixedSize()
                                 }
                                 
-                                Text("Adhan will play at full volume, override mute, prevent sleep, and stop on any key press")
+                                Text("Adhan will play at specified volume, override mute, prevent sleep, and stop on any key press")
                                     .font(.caption)
                                     .foregroundColor(Color("SecondaryTextColor"))
                             }
