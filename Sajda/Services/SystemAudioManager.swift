@@ -12,6 +12,10 @@ final class SystemAudioManager {
     private var savedVolume: Float?
     private var savedMuteState: Bool?
     private var savedDeviceUID: String?
+
+    // R5-3: Cache resolved AudioDeviceID to avoid redundant CoreAudio enumerations
+    private var cachedDeviceID: AudioDeviceID?
+    private var cachedDeviceUID: String?
     
     private init() {}
     
@@ -99,14 +103,21 @@ final class SystemAudioManager {
     }
     
     /// Resolves a device UID to its AudioDeviceID. Returns default output if not found.
+    /// R5-3: Uses cached result if UID matches previous lookup.
     private func resolveDeviceID(forUID uid: String?) -> AudioDeviceID {
+        // Check cache first
         if let uid = uid, !uid.isEmpty {
+            if uid == cachedDeviceUID, let cached = cachedDeviceID {
+                return cached
+            }
             let devices = getOutputDevices()
             if let device = devices.first(where: { $0.id == uid }) {
+                cachedDeviceUID = uid
+                cachedDeviceID = device.deviceID
                 return device.deviceID
             }
         }
-        // Fallback to system default
+        // Fallback to system default (don't cache — default can change)
         return getDefaultOutputDeviceID()
     }
     
@@ -130,6 +141,9 @@ final class SystemAudioManager {
     /// Saves the current volume and mute state for later restoration.
     func saveState(deviceUID: String? = nil) {
         savedDeviceUID = deviceUID
+        // R5-3: Clear cache at start of new override session
+        cachedDeviceID = nil
+        cachedDeviceUID = nil
         savedVolume = getVolume(deviceUID: deviceUID)
         savedMuteState = isMuted(deviceUID: deviceUID)
     }

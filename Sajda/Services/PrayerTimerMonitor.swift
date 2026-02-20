@@ -12,7 +12,16 @@ class PrayerTimerMonitor {
     private var lastPrayerTimes: [String: Date]?
     private var lastNextPrayerName: String?
 
+    // R5-1: Track previous values for change detection
+    // (@AppStorage reads from UserDefaults, so comparing it WITH UserDefaults is always equal)
+    private var trackedEnabled: Bool
+    private var trackedDuration: Int
+
     init() {
+        // Snapshot initial values
+        self.trackedEnabled = UserDefaults.standard.bool(forKey: "isPrayerTimerEnabled")
+        self.trackedDuration = UserDefaults.standard.integer(forKey: "prayerTimerDuration")
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handlePrayerTimeUpdate), name: .prayerTimesUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(settingsChanged), name: UserDefaults.didChangeNotification, object: nil)
     }
@@ -27,10 +36,12 @@ class PrayerTimerMonitor {
     }
     
     @objc private func settingsChanged() {
-        // PF-3: Only reschedule when our own settings change
+        // R5-1: Compare against tracked snapshots, not live UserDefaults
         let currentEnabled = UserDefaults.standard.bool(forKey: "isPrayerTimerEnabled")
         let currentDuration = UserDefaults.standard.integer(forKey: "prayerTimerDuration")
-        if currentEnabled != isEnabled || currentDuration != duration {
+        if currentEnabled != trackedEnabled || currentDuration != trackedDuration {
+            trackedEnabled = currentEnabled
+            trackedDuration = currentDuration
             rescheduleTimer()
         }
     }

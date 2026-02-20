@@ -312,6 +312,18 @@ class PrayerCalculationService: ObservableObject {
                 if resolvedURL.startAccessingSecurityScopedResource() {
                     activeSecurityScopedURL = resolvedURL
                 }
+
+                // R5-2: Regenerate stale bookmark while we still have access
+                if isStale {
+                    if let newBookmark = try? resolvedURL.bookmarkData(
+                        options: .withSecurityScope,
+                        includingResourceValuesForKeys: nil,
+                        relativeTo: nil
+                    ) {
+                        UserDefaults.standard.set(newBookmark, forKey: "customAdhanSoundBookmark")
+                    }
+                }
+
                 if FileManager.default.fileExists(atPath: resolvedURL.path) {
                     return resolvedURL
                 }
