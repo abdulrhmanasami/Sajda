@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject, NSWindowDe
         vm.$menuTitle.debounce(for: .milliseconds(100), scheduler: RunLoop.main).sink { [weak self] newTitle in self?.menuBarExtra?.updateTitle(to: newTitle) }.store(in: &cancellables)
         NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification).debounce(for: .milliseconds(50), scheduler: RunLoop.main).sink { [weak self] _ in self?.updateIconForMode(self?.vm.menuBarTextMode ?? .countdown) }.store(in: &cancellables)
 
-        // Sync language changes from the single LanguageManager to the ViewModel
+        // Sync language changes from the LanguageManager to the ViewModel
         NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
             .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
             .sink { [weak self] _ in
@@ -43,18 +43,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject, NSWindowDe
         // Initialize Prayer Timer Monitor
         self.prayerTimerMonitor = PrayerTimerMonitor()
         
-        // --- PERBAIKAN UNTUK BUG WAKE-FROM-SLEEP ---
         // Wake-from-sleep observer to refresh prayer times
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(systemDidWake), name: NSWorkspace.didWakeNotification, object: nil)
         
     }
     
     // MARK: - Wake-from-Sleep Handler
-    // Fungsi ini dipanggil saat Mac bangun, memaksa pembaruan waktu shalat.
+    
     @objc private func systemDidWake() {
-        // Tunggu sebentar untuk memastikan koneksi jaringan sudah siap jika diperlukan
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.vm.updatePrayerTimes()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            self?.vm.updatePrayerTimes()
         }
     }
     
@@ -127,7 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject, NSWindowDe
     }
 
     func windowShouldClose(_ sender: NSWindow) -> Bool {
-        sender.close()
+        sender.orderOut(nil)
         return false
     }
     

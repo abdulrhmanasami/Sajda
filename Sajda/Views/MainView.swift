@@ -55,7 +55,6 @@ struct MainView: View {
                 .buttonStyle(.plain)
                 .padding(.horizontal, 5)
                 .onHover { hovering in isSettingsHovering = hovering }
-                // --- PERBAIKAN DI SINI ---
                 .focusable(false)
                 
                 Button(action: {
@@ -69,7 +68,6 @@ struct MainView: View {
                 .buttonStyle(.plain)
                 .padding(.horizontal, 5)
                 .onHover { hovering in isAboutHovering = hovering }
-                // --- PERBAIKAN DI SINI ---
                 .focusable(false)
 
                 Rectangle()
@@ -87,7 +85,6 @@ struct MainView: View {
                 .buttonStyle(.plain)
                 .padding(.horizontal, 5)
                 .onHover { hovering in isQuitHovering = hovering }
-                // --- PERBAIKAN DI SINI ---
                 .focusable(false)
             }
         }.padding(.vertical, 8).frame(width: viewWidth)

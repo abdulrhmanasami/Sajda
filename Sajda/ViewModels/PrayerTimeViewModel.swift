@@ -84,6 +84,20 @@ class PrayerTimeViewModel: ObservableObject {
         // Sync initial settings to services
         calculationService.method = self.method
         calculationService.languageIdentifier = "en" // Default; AppDelegate will push real value
+        
+        // M-007: Explicit initial sync — @AppStorage didSet doesn't fire for initial values
+        calculationService.adhanSound = adhanSound
+        calculationService.customAdhanSoundPath = customAdhanSoundPath
+        calculationService.showSunnahPrayers = showSunnahPrayers
+        calculationService.isNotificationsEnabled = isNotificationsEnabled
+        calculationService.isPersistentAdhanEnabled = isPersistentAdhanEnabled
+        calculationService.persistentAdhanVolume = Float(persistentAdhanVolume)
+        calculationService.adhanOutputDeviceUID = adhanOutputDeviceUID
+        calculationService.fajrCorrection = fajrCorrection
+        calculationService.dhuhrCorrection = dhuhrCorrection
+        calculationService.asrCorrection = asrCorrection
+        calculationService.maghribCorrection = maghribCorrection
+        calculationService.ishaCorrection = ishaCorrection
 
         syncMenuBarConfig()
         setupBindings()

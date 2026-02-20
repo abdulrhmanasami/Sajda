@@ -41,7 +41,7 @@ class PrayerCalculationService: ObservableObject {
     private var currentCoordinates: CLLocationCoordinate2D?
     private var locationTimeZone: TimeZone = .current
     private var adhanPlayer: NSSound?
-    private var lastPlayedPrayerName: String?
+    private var lastPlayedPrayerKey: String?
 
     /// The active calculation method.
     var method: SajdaCalculationMethod = .allCases[0]
@@ -204,8 +204,13 @@ class PrayerCalculationService: ObservableObject {
             
             // Play Adhan sound
             let currentPrayerName = nextPrayerName
-            if currentPrayerName != lastPlayedPrayerName {
-                lastPlayedPrayerName = currentPrayerName
+            // Deduplicate using date+prayer key
+            let calendar = Calendar.current
+            let dayOfYear = calendar.ordinality(of: .day, in: .year, for: Date()) ?? 0
+            let prayerKey = "\(dayOfYear)-\(currentPrayerName)"
+            
+            if prayerKey != lastPlayedPrayerKey {
+                lastPlayedPrayerKey = prayerKey
                 
                 if isPersistentAdhanEnabled {
                     // Persistent Adhan: full playback with volume override + key dismiss
@@ -215,12 +220,12 @@ class PrayerCalculationService: ObservableObject {
                        let url = URL(string: soundPath) {
                         soundURL = url
                     } else {
-                        soundURL = nil
+                        soundURL = nil // defaultBeep or none — AdhanAlertService will use built-in fallback
                     }
                     AdhanAlertService.shared.playAdhan(
                         prayerName: currentPrayerName,
                         soundURL: soundURL,
-                        overrideVolume: persistentAdhanVolume,
+                        overrideVolume: adhanSound == .custom ? persistentAdhanVolume : 0.0,
                         deviceUID: adhanOutputDeviceUID.isEmpty ? nil : adhanOutputDeviceUID
                     )
                 } else if adhanSound == .custom,

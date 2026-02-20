@@ -18,6 +18,7 @@ struct SajdaCalculationMethod: Identifiable, Hashable {
 
     static let allCases: [SajdaCalculationMethod] = {
         // --- Custom Parameters ---
+        // Diyanet (Turkey): same angles as Algeria (18°/17°) but kept separate for regional recognition
         var diyanet = CalculationMethod.other.params
         diyanet.fajrAngle = 18.0
         diyanet.ishaAngle = 17.0

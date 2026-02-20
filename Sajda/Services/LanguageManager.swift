@@ -1,8 +1,9 @@
-// MARK: - GANTI/BUAT FILE: Sajda/LanguageManager.swift
+// MARK: - LanguageManager.swift
+// Manages runtime language switching with Bundle swizzling.
 
 import SwiftUI
 
-// Kelas ini akan menjadi satu-satunya sumber kebenaran untuk bahasa.
+/// Single source of truth for the active language.
 class LanguageManager: ObservableObject {
     @AppStorage("selectedLanguage") var language: String = "en" {
         didSet {
@@ -12,7 +13,7 @@ class LanguageManager: ObservableObject {
     }
 }
 
-// View pembungkus ini akan menerapkan environment dan memaksa render ulang.
+/// Wrapper view that applies locale, layout direction, and forces re-render on language change.
 struct LanguageManagerView<Content: View>: View {
     @StateObject var manager: LanguageManager
     let content: Content
@@ -27,14 +28,19 @@ struct LanguageManagerView<Content: View>: View {
             .environmentObject(manager)
             .environment(\.locale, Locale(identifier: manager.language))
             .environment(\.layoutDirection, manager.language == "ar" ? .rightToLeft : .leftToRight)
-            .id(manager.language) // Ini adalah kunci untuk memaksa render ulang!
+            .id(manager.language)
     }
 }
 
-// Ekstensi untuk Bundle (tetap di file yang sama)
-var bundleKey: UInt8 = 0
+// MARK: - Bundle Language Swizzling (thread-safe)
+
+private let bundleLock = NSLock()
+private var bundleKey: UInt8 = 0
+
 class AnyLanguageBundle: Bundle {
     override func localizedString(forKey key: String, value: String?, table tableName: String?) -> String {
+        bundleLock.lock()
+        defer { bundleLock.unlock() }
         guard let path = objc_getAssociatedObject(self, &bundleKey) as? String,
               let bundle = Bundle(path: path) else {
             return super.localizedString(forKey: key, value: value, table: tableName)
@@ -42,9 +48,12 @@ class AnyLanguageBundle: Bundle {
         return bundle.localizedString(forKey: key, value: value, table: tableName)
     }
 }
+
 extension Bundle {
     static func setLanguage(_ language: String) {
-        defer { object_setClass(Bundle.main, AnyLanguageBundle.self) }
+        bundleLock.lock()
+        defer { bundleLock.unlock() }
+        object_setClass(Bundle.main, AnyLanguageBundle.self)
         let value = language == "en" ? nil : Bundle.main.path(forResource: language, ofType: "lproj")
         objc_setAssociatedObject(Bundle.main, &bundleKey, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }

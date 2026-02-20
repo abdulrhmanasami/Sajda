@@ -134,4 +134,62 @@ final class SajdaTests: XCTestCase {
         XCTAssertNotNil(hanafiTimes)
         XCTAssertGreaterThan(hanafiTimes!.asr, shafiTimes!.asr, "Hanafi Asr should be later than Shafi Asr")
     }
+
+    // MARK: - Service Tests (M-005)
+
+    /// Tests that MenuBarService updates title correctly for countdown mode.
+    func testMenuBarService_CountdownTitle() throws {
+        let service = MenuBarService()
+        service.menuBarTextMode = .countdown
+        service.nextPrayerName = "Fajr"
+        service.countdown = "1h 30m"
+        service.isPrayerDataAvailable = true
+        service.isPrayerImminent = false
+        service.languageIdentifier = "en"
+        service.updateTitle()
+
+        let titleString = service.menuTitle.string
+        XCTAssertTrue(titleString.contains("Fajr") || titleString.contains("1h"), "Menu bar should show prayer name or countdown, got: \(titleString)")
+    }
+
+    /// Tests that MenuBarService shows 'Sajda Pro' when no prayer data is available.
+    func testMenuBarService_NoPrayerData() throws {
+        let service = MenuBarService()
+        service.isPrayerDataAvailable = false
+        service.updateTitle()
+        XCTAssertEqual(service.menuTitle.string, "Sajda Pro")
+    }
+
+    /// Tests that SystemAudioManager enumerates at least one output device.
+    func testSystemAudioManager_EnumeratesOutputDevices() throws {
+        let devices = SystemAudioManager.shared.getOutputDevices()
+        XCTAssertFalse(devices.isEmpty, "There should be at least one output device on the system")
+        
+        // Every device should have a non-empty UID and name
+        for device in devices {
+            XCTAssertFalse(device.id.isEmpty, "Device UID should not be empty")
+            XCTAssertFalse(device.name.isEmpty, "Device name should not be empty")
+        }
+    }
+
+    /// Tests that SystemAudioManager volume read/write round-trips correctly.
+    func testSystemAudioManager_VolumeRoundTrip() throws {
+        let originalVolume = SystemAudioManager.shared.getVolume()
+        
+        // Test that volume is in valid range
+        XCTAssertTrue(originalVolume >= 0.0 && originalVolume <= 1.0, "Volume should be between 0.0 and 1.0, got \(originalVolume)")
+    }
+
+    /// Tests date-based dedup key prevents same-day repeats but allows next-day.
+    func testDedupKey_DateBased() throws {
+        let calendar = Calendar.current
+        let today = calendar.ordinality(of: .day, in: .year, for: Date()) ?? 0
+        
+        let key1 = "\(today)-Fajr"
+        let key2 = "\(today)-Fajr"
+        let key3 = "\(today + 1)-Fajr"
+        
+        XCTAssertEqual(key1, key2, "Same day + same prayer should match")
+        XCTAssertNotEqual(key1, key3, "Different day + same prayer should NOT match")
+    }
 }

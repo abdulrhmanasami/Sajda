@@ -1,4 +1,5 @@
-// MARK: - PASTIKAN FILE INI (NotificationManager.swift) BERISI KODE DI BAWAH INI.
+// MARK: - NotificationManager.swift
+// Schedules and manages local notifications for prayer times.
 
 import Foundation
 import UserNotifications
@@ -6,7 +7,11 @@ import UserNotifications
 struct NotificationManager {
     
     static func requestPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { _, _ in }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if let error = error {
+                print("[Sajda] Notification permission error: \(error.localizedDescription)")
+            }
+        }
     }
     
     static func scheduleNotifications(for prayerTimes: [String: Date], prayerOrder: [String], adhanSound: AdhanSound, customSoundPath: String) {
@@ -27,7 +32,7 @@ struct NotificationManager {
                 case .defaultBeep:
                     content.sound = UNNotificationSound.default
                 case .custom:
-                    content.sound = nil // ViewModel akan memutar suara secara terpisah
+                    content.sound = nil // Custom sound is played separately via NSSound
                 }
 
                 let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: prayerTime)

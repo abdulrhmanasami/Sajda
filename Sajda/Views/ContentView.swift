@@ -12,8 +12,7 @@ struct ContentView: View {
         NavigationStackView(Self.id) {
             MainView()
         }
-        // --- PERBAIKAN DI SINI ---
-        // Menggunakan properti animationType yang baru, bukan disableAnimations yang sudah dihapus.
+        // Disable animations when animation type is set to none
         .transaction { transaction in
             if vm.animationType == .none {
                 transaction.disablesAnimations = true

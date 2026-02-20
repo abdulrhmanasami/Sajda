@@ -8,7 +8,7 @@ struct OnboardingView: View {
     @AppStorage("showOnboardingAtLaunch") private var showOnboardingAtLaunch = true
     @State private var showingManualLocationSheet = false
     
-    // State untuk efek hover
+    // Hover state variables
     @State private var isSkipHovering = false
     @State private var isHoveringChangeManual = false
     @State private var isHoveringSwitchToAuto = false

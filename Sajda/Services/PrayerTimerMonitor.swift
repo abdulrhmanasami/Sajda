@@ -50,7 +50,9 @@ class PrayerTimerMonitor {
         guard timeUntilTrigger > 0 else { return }
 
         timer = Timer.scheduledTimer(withTimeInterval: timeUntilTrigger, repeats: false) { _ in
-            AlertWindowManager.shared.showAlert()
+            // C-004: Don't show alert if Adhan is currently playing
+            guard !AdhanAlertService.shared.isPlaying else { return }
+            AlertWindowManager.shared.showAlert(autoDismissAfter: 10 * 60)
         }
     }
     

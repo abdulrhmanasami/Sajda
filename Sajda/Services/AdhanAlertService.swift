@@ -34,9 +34,11 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
         // 1. Prevent system sleep
         createSleepAssertion()
         
-        // 2. Override volume on the target device
-        SystemAudioManager.shared.saveState(deviceUID: deviceUID)
-        SystemAudioManager.shared.overrideVolume(to: overrideVolume, deviceUID: deviceUID)
+        // 2. Override volume on the target device (skip for defaultBeep where volume=0.0)
+        if overrideVolume > 0.0 {
+            SystemAudioManager.shared.saveState(deviceUID: deviceUID)
+            SystemAudioManager.shared.overrideVolume(to: overrideVolume, deviceUID: deviceUID)
+        }
         
         // 3. Play sound
         if let url = soundURL, FileManager.default.fileExists(atPath: url.path) {
@@ -69,7 +71,7 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
         currentSound?.stop()
         currentSound = nil
         
-        // Restore volume
+        // Restore volume (only if it was overridden)
         SystemAudioManager.shared.restoreState()
         
         // Remove keyboard monitor
@@ -142,12 +144,19 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
     // MARK: - Global Keyboard Monitor
     
     private func installKeyboardMonitor() {
-        // Global monitor: catches key events when app is NOT focused
-        globalKeyMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] _ in
-            DispatchQueue.main.async { self?.dismiss() }
+        // H-006: Check Accessibility permission for global monitoring
+        let trusted = AXIsProcessTrustedWithOptions(
+            [kAXTrustedCheckOptionPrompt.takeUnretainedValue(): true] as CFDictionary
+        )
+        
+        if trusted {
+            // Global monitor: catches key events when app is NOT focused
+            globalKeyMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] _ in
+                DispatchQueue.main.async { self?.dismiss() }
+            }
         }
         
-        // Local monitor: catches key events when app IS focused
+        // Local monitor: catches key events when app IS focused (always works)
         localKeyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             DispatchQueue.main.async { self?.dismiss() }
             return event
