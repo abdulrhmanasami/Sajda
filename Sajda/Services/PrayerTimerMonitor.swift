@@ -27,8 +27,12 @@ class PrayerTimerMonitor {
     }
     
     @objc private func settingsChanged() {
-        // Re-use stored prayer data when settings change
-        rescheduleTimer()
+        // PF-3: Only reschedule when our own settings change
+        let currentEnabled = UserDefaults.standard.bool(forKey: "isPrayerTimerEnabled")
+        let currentDuration = UserDefaults.standard.integer(forKey: "prayerTimerDuration")
+        if currentEnabled != isEnabled || currentDuration != duration {
+            rescheduleTimer()
+        }
     }
     
     private func rescheduleTimer() {

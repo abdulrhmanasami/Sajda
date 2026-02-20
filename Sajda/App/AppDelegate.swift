@@ -126,10 +126,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject, NSWindowDe
 
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         sender.orderOut(nil)
+        // PF-5: Clear the reference here since windowWillClose won't fire (we return false)
+        if sender == onboardingWindow {
+            onboardingWindow = nil
+        }
         return false
     }
     
     func windowWillClose(_ notification: Notification) {
+        // Fallback cleanup for programmatic close() calls
         if (notification.object as? NSWindow) == self.onboardingWindow {
             self.onboardingWindow = nil
         }

@@ -42,6 +42,13 @@ class PrayerCalculationService: ObservableObject {
     private var locationTimeZone: TimeZone = .current
     private var adhanPlayer: NSSound?
     private var lastPlayedPrayerKey: String?
+    private var activeSecurityScopedURL: URL?
+
+    /// Cached NumberFormatter to avoid re-creating every second in updateCountdown()
+    private lazy var countdownNumberFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        return nf
+    }()
 
     /// The active calculation method.
     var method: SajdaCalculationMethod = .allCases[0]
@@ -190,11 +197,10 @@ class PrayerCalculationService: ObservableObject {
         if diff > 0 {
             let h = diff / 3600
             let m = (diff % 3600) / 60
-            let numberFormatter = NumberFormatter()
-            numberFormatter.locale = Locale(identifier: languageIdentifier)
-            let formattedM = numberFormatter.string(from: NSNumber(value: m + 1)) ?? "\(m + 1)"
+            countdownNumberFormatter.locale = Locale(identifier: languageIdentifier)
+            let formattedM = countdownNumberFormatter.string(from: NSNumber(value: m + 1)) ?? "\(m + 1)"
             if h > 0 {
-                let formattedH = numberFormatter.string(from: NSNumber(value: h)) ?? "\(h)"
+                let formattedH = countdownNumberFormatter.string(from: NSNumber(value: h)) ?? "\(h)"
                 countdown = "\(formattedH)h \(formattedM)m"
             } else {
                 countdown = "\(formattedM)m"
@@ -215,6 +221,9 @@ class PrayerCalculationService: ObservableObject {
                 if isPersistentAdhanEnabled {
                     // Persistent Adhan: full playback with volume override + key dismiss
                     let soundURL = adhanSound == .custom ? resolveCustomSoundURL() : nil
+                    // PF-1: Hand the security-scoped resource to AdhanAlertService for proper release
+                    AdhanAlertService.shared.setSecurityScopedURL(activeSecurityScopedURL)
+                    activeSecurityScopedURL = nil // Ownership transferred
                     AdhanAlertService.shared.playAdhan(
                         prayerName: currentPrayerName,
                         soundURL: soundURL,
@@ -222,11 +231,14 @@ class PrayerCalculationService: ObservableObject {
                         deviceUID: adhanOutputDeviceUID.isEmpty ? nil : adhanOutputDeviceUID
                     )
                 } else if adhanSound == .custom {
-                    // Legacy: simple NSSound playback
+                    // Legacy: simple NSSound playback for custom sound
                     if let soundURL = resolveCustomSoundURL() {
                         adhanPlayer = NSSound(contentsOf: soundURL, byReference: false)
                         adhanPlayer?.play()
                     }
+                } else if adhanSound == .defaultBeep {
+                    // PF-2: Play system default notification sound
+                    NSSound.beep()
                 }
             }
             
@@ -279,6 +291,9 @@ class PrayerCalculationService: ObservableObject {
     private func resolveCustomSoundURL() -> URL? {
         guard !customAdhanSoundPath.isEmpty else { return nil }
 
+        // Release any previously held security-scoped resource
+        releaseSecurityScopedResource()
+
         // Strategy 1: Security-Scoped Bookmark (most reliable under sandbox)
         if let bookmarkData = UserDefaults.standard.data(forKey: "customAdhanSoundBookmark") {
             var isStale = false
@@ -288,7 +303,9 @@ class PrayerCalculationService: ObservableObject {
                 relativeTo: nil,
                 bookmarkDataIsStale: &isStale
             ) {
-                _ = resolvedURL.startAccessingSecurityScopedResource()
+                if resolvedURL.startAccessingSecurityScopedResource() {
+                    activeSecurityScopedURL = resolvedURL
+                }
                 if FileManager.default.fileExists(atPath: resolvedURL.path) {
                     return resolvedURL
                 }
@@ -312,5 +329,11 @@ class PrayerCalculationService: ObservableObject {
         }
 
         return nil
+    }
+
+    /// Releases the security-scoped resource if one is currently held.
+    func releaseSecurityScopedResource() {
+        activeSecurityScopedURL?.stopAccessingSecurityScopedResource()
+        activeSecurityScopedURL = nil
     }
 }

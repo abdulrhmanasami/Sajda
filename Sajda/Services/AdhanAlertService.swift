@@ -18,6 +18,8 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
     private var hasSleepAssertion = false
     private var alertWindow: NSWindow?
     private var sleepPreventionTimer: Timer?
+    private var didOverrideVolume = false
+    private var activeSecurityScopedURL: URL?
     
     /// Whether persistent Adhan is currently playing.
     private(set) var isPlaying = false
@@ -25,6 +27,11 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
     private override init() { super.init() }
     
     // MARK: - Public API
+    
+    /// Sets the security-scoped URL to release after playback.
+    func setSecurityScopedURL(_ url: URL?) {
+        activeSecurityScopedURL = url
+    }
     
     /// Plays the Adhan with full persistence: volume override, sleep prevention, key dismiss.
     func playAdhan(prayerName: String, soundURL: URL?, overrideVolume: Float, deviceUID: String? = nil) {
@@ -38,6 +45,9 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
         if overrideVolume > 0.0 {
             SystemAudioManager.shared.saveState(deviceUID: deviceUID)
             SystemAudioManager.shared.overrideVolume(to: overrideVolume, deviceUID: deviceUID)
+            didOverrideVolume = true
+        } else {
+            didOverrideVolume = false
         }
         
         // 3. Play sound
@@ -71,8 +81,11 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
         currentSound?.stop()
         currentSound = nil
         
-        // Restore volume (only if it was overridden)
-        SystemAudioManager.shared.restoreState()
+        // PF-6: Restore volume only if it was actually overridden
+        if didOverrideVolume {
+            SystemAudioManager.shared.restoreState()
+            didOverrideVolume = false
+        }
         
         // Remove keyboard monitor
         removeKeyboardMonitor()
@@ -82,6 +95,10 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
         
         // Close alert window
         closeAdhanAlert()
+        
+        // PF-1: Release security-scoped resource
+        activeSecurityScopedURL?.stopAccessingSecurityScopedResource()
+        activeSecurityScopedURL = nil
         
         isPlaying = false
     }
