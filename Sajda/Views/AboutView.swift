@@ -8,7 +8,7 @@ struct AboutView: View {
     
     @AppStorage("showOnboardingAtLaunch") private var showOnboardingAtLaunch = true
     @State private var isHeaderHovering = false
-    // State isDoneHovering sudah dihapus karena tidak lagi diperlukan.
+    // isDoneHovering state removed as it is no longer needed.
     
     private var viewWidth: CGFloat {
         return vm.useCompactLayout ? 220 : 260
@@ -48,7 +48,7 @@ struct AboutView: View {
                         Text("A simple and beautiful prayer times app for your menu bar.").font(.subheadline)
                             .multilineTextAlignment(.center).padding(.horizontal)
                     }
-                    // Mengganti tombol kustom dengan tombol native macOS.
+                    // Replaced custom button with native macOS button.
                     Rectangle()
                         .fill(Color("DividerColor"))
                         .frame(height: 1)
@@ -60,11 +60,11 @@ struct AboutView: View {
 
                         Button(action: handleBackButton) {
                             Text("Done")
-                                .frame(maxWidth: 100) // Memberikan lebar yang cukup
+                                .frame(maxWidth: 100) // Sufficient width for the button
                         }
-                        .buttonStyle(.borderedProminent) // Gaya native yang menonjol
-                        .controlSize(.regular) // Ukuran tombol standar
-                        .keyboardShortcut(.defaultAction) // Menjadikannya aksi default (Enter)
+                        .buttonStyle(.borderedProminent) // Prominent native style
+                        .controlSize(.regular) // Standard button size
+                        .keyboardShortcut(.defaultAction) // Makes Enter the default action
                     }
                     .padding(.bottom, 12)
                     

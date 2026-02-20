@@ -34,7 +34,11 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var locationInfoText: String = ""
     @Published var isRequestingLocation: Bool = false
 
-    var isUsingManualLocation: Bool = false
+    /// R2-2: Read from UserDefaults so it stays in sync with ViewModel's @AppStorage
+    var isUsingManualLocation: Bool {
+        get { UserDefaults.standard.bool(forKey: "isUsingManualLocation") }
+        set { UserDefaults.standard.set(newValue, forKey: "isUsingManualLocation") }
+    }
 
     // MARK: - Callbacks
 
@@ -50,6 +54,13 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locMgr = CLLocationManager()
     private var cancellables = Set<AnyCancellable>()
     private var locationDisplayTimer: Timer?
+
+    /// R2-3: Cached DateFormatter to avoid re-creating every second
+    private lazy var locationTimeFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.timeStyle = .medium
+        return df
+    }()
 
     // MARK: - Nominatim Models
 
@@ -94,31 +105,32 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
         self.locationTimeZone = TimeZoneLocate.timeZoneWithLocation(location)
 
-        var locationNameToSave = city
-        if city == "Custom Coordinate" {
-            let geocoder = CLGeocoder()
-            geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, _) in
-                guard let self = self else { return }
-                if let placemark = placemarks?.first, let cityName = placemark.locality {
-                    locationNameToSave = cityName
-                    self.locationStatusText = cityName
-                    let manualData: [String: Any] = ["name": locationNameToSave, "latitude": coordinates.latitude, "longitude": coordinates.longitude]
-                    UserDefaults.standard.set(manualData, forKey: "manualLocationData")
-                } else {
-                    self.locationStatusText = String(format: "Coord: %.2f, %.2f", coordinates.latitude, coordinates.longitude)
-                }
-            }
-        } else {
-            self.locationStatusText = city
-        }
-
-        let manualLocationData: [String: Any] = ["name": locationNameToSave, "latitude": coordinates.latitude, "longitude": coordinates.longitude]
-        UserDefaults.standard.set(manualLocationData, forKey: "manualLocationData")
+        // R2-4: Save immediately with the provided name, then update asynchronously if geocoded
         isUsingManualLocation = true
         currentCoordinates = coordinates
         authorizationStatus = .authorized
         locationSearchQuery = ""
         locationSearchResults = []
+
+        if city == "Custom Coordinate" {
+            // Set temporary display while geocoding
+            self.locationStatusText = String(format: "Coord: %.2f, %.2f", coordinates.latitude, coordinates.longitude)
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, _) in
+                guard let self = self else { return }
+                let resolvedName = placemarks?.first?.locality ?? String(format: "Coord: %.2f, %.2f", coordinates.latitude, coordinates.longitude)
+                DispatchQueue.main.async {
+                    self.locationStatusText = resolvedName
+                    let manualData: [String: Any] = ["name": resolvedName, "latitude": coordinates.latitude, "longitude": coordinates.longitude]
+                    UserDefaults.standard.set(manualData, forKey: "manualLocationData")
+                }
+            }
+        } else {
+            self.locationStatusText = city
+            let manualData: [String: Any] = ["name": city, "latitude": coordinates.latitude, "longitude": coordinates.longitude]
+            UserDefaults.standard.set(manualData, forKey: "manualLocationData")
+        }
+
         notifyCoordinatesUpdated()
         startLocationDisplayTimer()
     }
@@ -209,7 +221,8 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         case .denied, .restricted:
             locationStatusText = "Location access denied."
             isRequestingLocation = false
-            onCoordinatesUpdated?(CLLocationCoordinate2D(), .current)
+            // R2-5: Do NOT send empty (0,0) coordinates — let the app stay without prayer data
+            // rather than calculate for Gulf of Guinea, Africa
         case .notDetermined:
             isRequestingLocation = false
             locationStatusText = "Location access needed"
@@ -259,7 +272,9 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
                 return URLSession.shared.dataTaskPublisher(for: request)
                     .map(\.data)
                     .decode(type: [NominatimResult].self, decoder: JSONDecoder())
-                    .catch { _ -> Just<[NominatimResult]> in
+                    .catch { error -> Just<[NominatimResult]> in
+                        // R2-8: Log search errors for diagnostics
+                        print("[Sajda] Nominatim search failed: \(error.localizedDescription)")
                         return Just([])
                     }
                     .map { results -> [LocationSearchResult] in
@@ -286,11 +301,9 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         stopLocationDisplayTimer()
         locationDisplayTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            let timeFormatter = DateFormatter()
-            timeFormatter.timeZone = self.locationTimeZone
-            timeFormatter.timeStyle = .medium
+            self.locationTimeFormatter.timeZone = self.locationTimeZone
             let tzName = self.locationTimeZone.identifier
-            let currentTime = timeFormatter.string(from: Date())
+            let currentTime = self.locationTimeFormatter.string(from: Date())
             self.locationInfoText = "Timezone: \(tzName) | Current Time: \(currentTime)"
         }
     }

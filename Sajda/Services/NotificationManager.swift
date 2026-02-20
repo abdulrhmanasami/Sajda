@@ -32,7 +32,9 @@ struct NotificationManager {
                 case .defaultBeep:
                     content.sound = UNNotificationSound.default
                 case .custom:
-                    content.sound = nil // Custom sound is played separately via NSSound
+                    // R2-7: Use default sound as notification fallback.
+                    // Custom Adhan sound is played separately via NSSound/AdhanAlertService.
+                    content.sound = UNNotificationSound.default
                 }
 
                 let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: prayerTime)

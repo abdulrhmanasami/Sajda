@@ -34,7 +34,7 @@ struct CorrectionRow: View {
                 }
             }
             
-            // Pratinjau Inline
+            // Inline Preview
             HStack {
                 Spacer()
                 if let original = originalTime, let adjusted = adjustedTime {
@@ -181,11 +181,12 @@ struct PrayerTimeCorrectionView: View {
         cancellable = updateSubject
             .debounce(for: .milliseconds(400), scheduler: RunLoop.main)
             .sink { [self] in
-                vm.fajrCorrection = self.fajrValue
-                vm.dhuhrCorrection = self.dhuhrValue
-                vm.asrCorrection = self.asrValue
-                vm.maghribCorrection = self.maghribValue
-                vm.ishaCorrection = self.ishaValue
+                // R2-6: Safe — struct View captures value types; cancellable cancelled in onDisappear
+                vm.fajrCorrection = fajrValue
+                vm.dhuhrCorrection = dhuhrValue
+                vm.asrCorrection = asrValue
+                vm.maghribCorrection = maghribValue
+                vm.ishaCorrection = ishaValue
             }
     }
     
