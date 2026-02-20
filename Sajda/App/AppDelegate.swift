@@ -96,7 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject, NSWindowDe
 
         let onboardingView = LanguageManagerView(manager: languageManager) {
             OnboardingView()
-                .environmentObject(vm)
+                .environmentObject(self.vm)
                 .environmentObject(NavigationModel())
         }
 

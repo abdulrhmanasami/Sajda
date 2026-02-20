@@ -12,6 +12,7 @@ struct SystemAndNotificationsSettingsView: View {
     @AppStorage("isPrayerTimerEnabled") private var isPrayerTimerEnabled = false
     @AppStorage("prayerTimerDuration") private var prayerTimerDuration = 5
     @State private var isHeaderHovering = false
+    @State private var availableOutputDevices: [SystemAudioManager.AudioOutputDevice] = []
 
     private var viewWidth: CGFloat {
         return vm.useCompactLayout ? 220 : 260
@@ -109,7 +110,7 @@ struct SystemAndNotificationsSettingsView: View {
                                     Spacer()
                                     Picker("", selection: $vm.adhanOutputDeviceUID) {
                                         Text("System Default").tag("")
-                                        ForEach(SystemAudioManager.shared.getOutputDevices()) { device in
+                                        ForEach(availableOutputDevices) { device in
                                             Text(device.name).tag(device.id)
                                         }
                                     }
@@ -151,6 +152,12 @@ struct SystemAndNotificationsSettingsView: View {
             }
             .padding(.vertical, 8)
             .frame(width: viewWidth)
+            .onAppear {
+                availableOutputDevices = SystemAudioManager.shared.getOutputDevices()
+            }
+            .onChange(of: vm.isPersistentAdhanEnabled) { _ in
+                availableOutputDevices = SystemAudioManager.shared.getOutputDevices()
+            }
         }
     }
 }

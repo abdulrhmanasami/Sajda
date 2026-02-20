@@ -58,6 +58,13 @@ struct AboutView: View {
                             .toggleStyle(.checkbox)
                             .controlSize(.small)
 
+                        // R3-5: Allow re-opening onboarding on demand
+                        Button("Open Welcome Guide") {
+                            (NSApp.delegate as? AppDelegate)?.showOnboardingWindow()
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+
                         Button(action: handleBackButton) {
                             Text("Done")
                                 .frame(maxWidth: 100) // Sufficient width for the button

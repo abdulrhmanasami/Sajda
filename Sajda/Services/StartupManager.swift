@@ -5,7 +5,7 @@ import ServiceManagement
 struct StartupManager {
     static func toggleLaunchAtLogin(isEnabled: Bool) {
         do {
-            let service = SMAppService()
+            let service = SMAppService.mainApp
             
             if isEnabled {
                 try service.register()
@@ -13,7 +13,7 @@ struct StartupManager {
                 try service.unregister()
             }
         } catch {
-            // SMAppService registration failure is non-critical
+            print("[Sajda] Launch at login toggle failed: \(error.localizedDescription)")
         }
     }
 }

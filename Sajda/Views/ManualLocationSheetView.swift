@@ -24,16 +24,14 @@ struct ManualLocationSheetView: View {
                 .textFieldStyle(.roundedBorder)
             
             if vm.isLocationSearching {
-                // --- KUNCI PERBAIKAN 1 ---
-                // Bungkus dalam VStack dengan Spacer agar tetap di atas.
+                // Loading state: keep spinner at top
                 VStack {
                     ProgressView()
                         .padding(.top, 20)
                     Spacer()
                 }
             } else if vm.locationSearchResults.isEmpty {
-                // --- KUNCI PERBAIKAN 2 ---
-                // Bungkus dalam VStack dengan Spacer agar tetap di atas.
+                // Empty state: keep text at top
                 VStack {
                     Text(vm.locationSearchQuery.isEmpty ? " " : "No results found.")
                         .foregroundColor(.secondary)
@@ -41,9 +39,7 @@ struct ManualLocationSheetView: View {
                     Spacer()
                 }
             } else {
-                // --- KUNCI PERBAIKAN 3 ---
-                // ScrollView dibiarkan sendiri tanpa Spacer,
-                // sehingga ia akan mengisi sisa ruang secara otomatis.
+                // Results: ScrollView fills remaining space naturally
                 ScrollView {
                     VStack(spacing: 2) {
                         ForEach(vm.locationSearchResults) { result in

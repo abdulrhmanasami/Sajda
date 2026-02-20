@@ -16,15 +16,15 @@ class LanguageManager: ObservableObject {
 /// Wrapper view that applies locale, layout direction, and forces re-render on language change.
 struct LanguageManagerView<Content: View>: View {
     @StateObject var manager: LanguageManager
-    let content: Content
+    let content: () -> Content
 
-    init(manager: LanguageManager, @ViewBuilder content: () -> Content) {
+    init(manager: LanguageManager, @ViewBuilder content: @escaping () -> Content) {
         _manager = StateObject(wrappedValue: manager)
-        self.content = content()
+        self.content = content
     }
 
     var body: some View {
-        content
+        content()
             .environmentObject(manager)
             .environment(\.locale, Locale(identifier: manager.language))
             .environment(\.layoutDirection, manager.language == "ar" ? .rightToLeft : .leftToRight)
