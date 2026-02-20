@@ -27,16 +27,16 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
     // MARK: - Public API
     
     /// Plays the Adhan with full persistence: volume override, sleep prevention, key dismiss.
-    func playAdhan(prayerName: String, soundURL: URL?, overrideVolume: Float) {
+    func playAdhan(prayerName: String, soundURL: URL?, overrideVolume: Float, deviceUID: String? = nil) {
         guard !isPlaying else { return }
         isPlaying = true
         
         // 1. Prevent system sleep
         createSleepAssertion()
         
-        // 2. Override volume
-        SystemAudioManager.shared.saveState()
-        SystemAudioManager.shared.overrideVolume(to: overrideVolume)
+        // 2. Override volume on the target device
+        SystemAudioManager.shared.saveState(deviceUID: deviceUID)
+        SystemAudioManager.shared.overrideVolume(to: overrideVolume, deviceUID: deviceUID)
         
         // 3. Play sound
         if let url = soundURL, FileManager.default.fileExists(atPath: url.path) {
@@ -46,6 +46,12 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
             currentSound = NSSound(named: .init("Funk"))
         }
         currentSound?.delegate = self
+        
+        // Route to specific output device
+        if let uid = deviceUID, !uid.isEmpty {
+            currentSound?.playbackDeviceIdentifier = uid
+        }
+        
         currentSound?.play()
         
         // 4. Show Adhan alert window

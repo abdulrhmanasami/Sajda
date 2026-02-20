@@ -97,6 +97,18 @@ struct SystemAndNotificationsSettingsView: View {
                                 Slider(value: $vm.persistentAdhanVolume, in: 0.1...1.0, step: 0.05)
                                     .controlSize(.small)
                                 
+                                HStack {
+                                    Text("Output Device").font(.subheadline)
+                                    Spacer()
+                                    Picker("", selection: $vm.adhanOutputDeviceUID) {
+                                        Text("System Default").tag("")
+                                        ForEach(SystemAudioManager.shared.getOutputDevices()) { device in
+                                            Text(device.name).tag(device.id)
+                                        }
+                                    }
+                                    .fixedSize()
+                                }
+                                
                                 Text("Adhan will play at full volume, override mute, prevent sleep, and stop on any key press")
                                     .font(.caption)
                                     .foregroundColor(Color("SecondaryTextColor"))

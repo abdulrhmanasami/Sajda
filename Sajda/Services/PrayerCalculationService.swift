@@ -31,6 +31,7 @@ class PrayerCalculationService: ObservableObject {
     var ishaCorrection: Double = 0
     var isPersistentAdhanEnabled: Bool = false
     var persistentAdhanVolume: Float = 0.7
+    var adhanOutputDeviceUID: String = ""
 
     // MARK: - Internal State
 
@@ -219,7 +220,8 @@ class PrayerCalculationService: ObservableObject {
                     AdhanAlertService.shared.playAdhan(
                         prayerName: currentPrayerName,
                         soundURL: soundURL,
-                        overrideVolume: persistentAdhanVolume
+                        overrideVolume: persistentAdhanVolume,
+                        deviceUID: adhanOutputDeviceUID.isEmpty ? nil : adhanOutputDeviceUID
                     )
                 } else if adhanSound == .custom,
                           let soundPath = customAdhanSoundPath.removingPercentEncoding,
