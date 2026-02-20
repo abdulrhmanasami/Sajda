@@ -214,27 +214,19 @@ class PrayerCalculationService: ObservableObject {
                 
                 if isPersistentAdhanEnabled {
                     // Persistent Adhan: full playback with volume override + key dismiss
-                    let soundURL: URL?
-                    if adhanSound == .custom,
-                       let soundPath = customAdhanSoundPath.removingPercentEncoding,
-                       let url = URL(string: soundPath) {
-                        soundURL = url
-                    } else {
-                        soundURL = nil // defaultBeep or none — AdhanAlertService will use built-in fallback
-                    }
+                    let soundURL = adhanSound == .custom ? resolveCustomSoundURL() : nil
                     AdhanAlertService.shared.playAdhan(
                         prayerName: currentPrayerName,
                         soundURL: soundURL,
                         overrideVolume: adhanSound == .custom ? persistentAdhanVolume : 0.0,
                         deviceUID: adhanOutputDeviceUID.isEmpty ? nil : adhanOutputDeviceUID
                     )
-                } else if adhanSound == .custom,
-                          let soundPath = customAdhanSoundPath.removingPercentEncoding,
-                          let soundURL = URL(string: soundPath),
-                          FileManager.default.fileExists(atPath: soundURL.path) {
+                } else if adhanSound == .custom {
                     // Legacy: simple NSSound playback
-                    adhanPlayer = NSSound(contentsOf: soundURL, byReference: true)
-                    adhanPlayer?.play()
+                    if let soundURL = resolveCustomSoundURL() {
+                        adhanPlayer = NSSound(contentsOf: soundURL, byReference: false)
+                        adhanPlayer?.play()
+                    }
                 }
             }
             
@@ -276,5 +268,49 @@ class PrayerCalculationService: ObservableObject {
         )
         SharedDefaults.write(data)
         WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    // MARK: - Custom Sound URL Resolution
+
+    /// Resolves the custom Adhan sound file URL with 3-tier fallback:
+    /// 1. Security-Scoped Bookmark (survives sandbox + app restarts)
+    /// 2. Raw file path via `URL(fileURLWithPath:)` (works for current session)
+    /// 3. Backward-compatible: old URL-encoded `absoluteString` format
+    private func resolveCustomSoundURL() -> URL? {
+        guard !customAdhanSoundPath.isEmpty else { return nil }
+
+        // Strategy 1: Security-Scoped Bookmark (most reliable under sandbox)
+        if let bookmarkData = UserDefaults.standard.data(forKey: "customAdhanSoundBookmark") {
+            var isStale = false
+            if let resolvedURL = try? URL(
+                resolvingBookmarkData: bookmarkData,
+                options: .withSecurityScope,
+                relativeTo: nil,
+                bookmarkDataIsStale: &isStale
+            ) {
+                _ = resolvedURL.startAccessingSecurityScopedResource()
+                if FileManager.default.fileExists(atPath: resolvedURL.path) {
+                    return resolvedURL
+                }
+            }
+        }
+
+        // Strategy 2: Raw file path (current format — stored as url.path)
+        let rawPath = customAdhanSoundPath
+        if !rawPath.hasPrefix("file://") {
+            let fileURL = URL(fileURLWithPath: rawPath)
+            if FileManager.default.fileExists(atPath: fileURL.path) {
+                return fileURL
+            }
+        }
+
+        // Strategy 3: Backward compatibility — old absoluteString format (file:///...%20...)
+        if rawPath.hasPrefix("file://"), let oldURL = URL(string: rawPath) {
+            if FileManager.default.fileExists(atPath: oldURL.path) {
+                return oldURL
+            }
+        }
+
+        return nil
     }
 }

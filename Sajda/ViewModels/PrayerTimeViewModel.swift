@@ -148,7 +148,18 @@ class PrayerTimeViewModel: ObservableObject {
         openPanel.canChooseDirectories = false
         openPanel.allowsMultipleSelection = false
         openPanel.allowedContentTypes = [.audio]
-        if openPanel.runModal() == .OK { self.customAdhanSoundPath = openPanel.url?.absoluteString ?? "" }
+        if openPanel.runModal() == .OK, let url = openPanel.url {
+            // RCA-2: Store the raw file path (no URL encoding)
+            self.customAdhanSoundPath = url.path
+            
+            // RCA-3: Save security-scoped bookmark for sandbox persistence across launches
+            do {
+                let bookmark = try url.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+                UserDefaults.standard.set(bookmark, forKey: "customAdhanSoundBookmark")
+            } catch {
+                print("[Sajda] Failed to create security-scoped bookmark: \(error)")
+            }
+        }
     }
     func updatePrayerTimes() { calculationService.updatePrayerTimes() }
     func updateMenuTitle() { syncMenuBarData(); menuBarService.updateTitle() }

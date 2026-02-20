@@ -69,7 +69,14 @@ struct SystemAndNotificationsSettingsView: View {
                                 HStack { Text("Notification Sound").font(.subheadline); Spacer(); Picker("", selection: $vm.adhanSound) { ForEach(AdhanSound.allCases) { sound in Text(sound.rawValue).tag(sound) } }.fixedSize() }
                                 if vm.adhanSound == .custom {
                                     HStack { Text("Custom File").font(.subheadline); Spacer(); Button("Browse...") { vm.selectCustomAdhanSound() } }
-                                    Text(URL(string: vm.customAdhanSoundPath)?.lastPathComponent ?? NSLocalizedString("No file selected", comment: ""))
+                                    Text({
+                                        let path = vm.customAdhanSoundPath
+                                        if path.isEmpty { return NSLocalizedString("No file selected", comment: "") }
+                                        if path.hasPrefix("file://") {
+                                            return URL(string: path)?.lastPathComponent ?? path
+                                        }
+                                        return URL(fileURLWithPath: path).lastPathComponent
+                                    }())
                                         .font(.caption)
                                         .foregroundColor(Color("SecondaryTextColor"))
                                         .frame(maxWidth: .infinity, alignment: .trailing)
