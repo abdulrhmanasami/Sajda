@@ -1,0 +1,820 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		92384C246D454D10896B7D69 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D56C439F548C39855A494 /* LocationService.swift */; };
+		14185A39E4A044A79F68124E /* PrayerCalculationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862B634C3A724FF3AD25CE2D /* PrayerCalculationService.swift */; };
+		F039A1D238F14C25A9DBB0FF /* MenuBarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE3562F88BD4F28BC339FF8 /* MenuBarService.swift */; };
+		CC07FC602E63FD5800924451 /* LocationAndCalcSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07FC5F2E63FD5800924451 /* LocationAndCalcSettingsView.swift */; };
+		CC07FC622E63FF5100924451 /* SystemAndNotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07FC612E63FF5100924451 /* SystemAndNotificationsSettingsView.swift */; };
+		CC07FC662E64122F00924451 /* NavigationStack in Frameworks */ = {isa = PBXBuildFile; productRef = CC07FC652E64122F00924451 /* NavigationStack */; };
+		CC4659652E6629C000159A83 /* SajdaStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4659642E6629C000159A83 /* SajdaStepper.swift */; };
+		CC786E4E2E634B65007299F3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E4D2E634B65007299F3 /* OnboardingView.swift */; };
+		CC786E522E6353F1007299F3 /* ManualLocationSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E512E6353F1007299F3 /* ManualLocationSheetView.swift */; };
+		CC786E542E6359E1007299F3 /* PrayerTimerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E532E6359E1007299F3 /* PrayerTimerMonitor.swift */; };
+		CC786E562E635ADA007299F3 /* AlertWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E552E635ADA007299F3 /* AlertWindowManager.swift */; };
+		CC786E582E635B46007299F3 /* PrayerTimerAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E572E635B46007299F3 /* PrayerTimerAlertView.swift */; };
+		CC786E5B2E636A04007299F3 /* TimeZoneLocate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E5A2E636A04007299F3 /* TimeZoneLocate.swift */; };
+		CC786E5D2E636A58007299F3 /* timezones.json in Resources */ = {isa = PBXBuildFile; fileRef = CC786E5C2E636A58007299F3 /* timezones.json */; };
+		CC786E5F2E637700007299F3 /* AdhanSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E5E2E637700007299F3 /* AdhanSound.swift */; };
+		CC786E632E63787E007299F3 /* MenuBarTextMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E622E63787E007299F3 /* MenuBarTextMode.swift */; };
+		CC786E652E638353007299F3 /* SajdaCalculationMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E642E638353007299F3 /* SajdaCalculationMethod.swift */; };
+		CC786E672E638425007299F3 /* LocationSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E662E638425007299F3 /* LocationSearchResult.swift */; };
+		CC786E6C2E63B1CB007299F3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC786E6E2E63B1CB007299F3 /* Localizable.strings */; };
+		CC786E722E63BB26007299F3 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E712E63BB26007299F3 /* LanguageManager.swift */; };
+		CC786E742E63BD15007299F3 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC786E732E63BD15007299F3 /* VisualEffectView.swift */; };
+		CC969C782E60857A00C8630A /* SajdaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC969C772E60857A00C8630A /* SajdaApp.swift */; };
+		CC969C7A2E60857A00C8630A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC969C792E60857A00C8630A /* ContentView.swift */; };
+		CC969C7C2E60857D00C8630A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC969C7B2E60857D00C8630A /* Assets.xcassets */; };
+		CC969C7F2E60857D00C8630A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC969C7E2E60857D00C8630A /* Preview Assets.xcassets */; };
+		CC969C8A2E60857E00C8630A /* SajdaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC969C892E60857E00C8630A /* SajdaTests.swift */; };
+		CC969C942E60857E00C8630A /* SajdaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC969C932E60857E00C8630A /* SajdaUITests.swift */; };
+		CC969C962E60857E00C8630A /* SajdaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC969C952E60857E00C8630A /* SajdaUITestsLaunchTests.swift */; };
+		CC969CA32E6085F200C8630A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC969CA22E6085F200C8630A /* Info.plist */; };
+		CC969CA72E60989F00C8630A /* PrayerTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC969CA62E60989F00C8630A /* PrayerTimeViewModel.swift */; };
+		CC969CA92E6098C600C8630A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC969CA82E6098C500C8630A /* SettingsView.swift */; };
+		CC9C2F012E61385B00BAE49A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9C2F002E61385B00BAE49A /* AppDelegate.swift */; };
+		CCE079712E6438100026054C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE079702E6438100026054C /* main.swift */; };
+		CCE1BA3A2E61852B003AF03C /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1BA302E61839F003AF03C /* EventMonitor.swift */; };
+		CCE1BA3B2E61852B003AF03C /* RootViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1BA332E6183A0003AF03C /* RootViewModifier.swift */; };
+		CCE1BA3C2E61852B003AF03C /* FluidMenuBarExtraStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1BA312E61839F003AF03C /* FluidMenuBarExtraStatusItem.swift */; };
+		CCE1BA3D2E61852B003AF03C /* FluidMenuBarExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1BA2F2E61839E003AF03C /* FluidMenuBarExtra.swift */; };
+		CCE1BA3E2E61852B003AF03C /* UpdateSizeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1BA2E2E61839E003AF03C /* UpdateSizeAction.swift */; };
+		CCE1BA3F2E61852B003AF03C /* FluidMenuBarExtraWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1BA322E61839F003AF03C /* FluidMenuBarExtraWindow.swift */; };
+		CCE1BA452E6198C1003AF03C /* ManualLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1BA442E6198C1003AF03C /* ManualLocationView.swift */; };
+		CCE1BA472E620757003AF03C /* StyledToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE1BA462E620757003AF03C /* StyledToggle.swift */; };
+		CCEC0E3F2E60A3A0001E9B1E /* Adhan in Frameworks */ = {isa = PBXBuildFile; productRef = CCEC0E3E2E60A3A0001E9B1E /* Adhan */; };
+		CCEC0E412E60A899001E9B1E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEC0E402E60A899001E9B1E /* MainView.swift */; };
+		CCEC0E452E60B08D001E9B1E /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEC0E442E60B08D001E9B1E /* AboutView.swift */; };
+		CCEC0E492E60B700001E9B1E /* StartupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEC0E482E60B700001E9B1E /* StartupManager.swift */; };
+		CCEC0E4F2E60D2EC001E9B1E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEC0E4E2E60D2EC001E9B1E /* NotificationManager.swift */; };
+		CCED21862E65F9770066D0EB /* NavigationAnimation+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCED21852E65F9770066D0EB /* NavigationAnimation+Custom.swift */; };
+		CCED21882E65FE650066D0EB /* AnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCED21872E65FE650066D0EB /* AnimationType.swift */; };
+		CCFD21DA2E62BEEB00A80402 /* PrayerTimeCorrectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD21D92E62BEEB00A80402 /* PrayerTimeCorrectionView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC969C862E60857E00C8630A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC969C6C2E60857A00C8630A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC969C732E60857A00C8630A;
+			remoteInfo = Sajda;
+		};
+		CC969C902E60857E00C8630A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC969C6C2E60857A00C8630A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC969C732E60857A00C8630A;
+			remoteInfo = Sajda;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		043D56C439F548C39855A494 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		862B634C3A724FF3AD25CE2D /* PrayerCalculationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerCalculationService.swift; sourceTree = "<group>"; };
+		3CE3562F88BD4F28BC339FF8 /* MenuBarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarService.swift; sourceTree = "<group>"; };
+		CC07FC5F2E63FD5800924451 /* LocationAndCalcSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAndCalcSettingsView.swift; sourceTree = "<group>"; };
+		CC07FC612E63FF5100924451 /* SystemAndNotificationsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAndNotificationsSettingsView.swift; sourceTree = "<group>"; };
+		CC4659642E6629C000159A83 /* SajdaStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SajdaStepper.swift; sourceTree = "<group>"; };
+		CC786E4D2E634B65007299F3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		CC786E512E6353F1007299F3 /* ManualLocationSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualLocationSheetView.swift; sourceTree = "<group>"; };
+		CC786E532E6359E1007299F3 /* PrayerTimerMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTimerMonitor.swift; sourceTree = "<group>"; };
+		CC786E552E635ADA007299F3 /* AlertWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowManager.swift; sourceTree = "<group>"; };
+		CC786E572E635B46007299F3 /* PrayerTimerAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTimerAlertView.swift; sourceTree = "<group>"; };
+		CC786E5A2E636A04007299F3 /* TimeZoneLocate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeZoneLocate.swift; sourceTree = "<group>"; };
+		CC786E5C2E636A58007299F3 /* timezones.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = timezones.json; sourceTree = "<group>"; };
+		CC786E5E2E637700007299F3 /* AdhanSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdhanSound.swift; sourceTree = "<group>"; };
+		CC786E622E63787E007299F3 /* MenuBarTextMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarTextMode.swift; sourceTree = "<group>"; };
+		CC786E642E638353007299F3 /* SajdaCalculationMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SajdaCalculationMethod.swift; sourceTree = "<group>"; };
+		CC786E662E638425007299F3 /* LocationSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchResult.swift; sourceTree = "<group>"; };
+		CC786E6D2E63B1CB007299F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CC786E6F2E63B20E007299F3 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CC786E702E63B21D007299F3 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CC786E712E63BB26007299F3 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+		CC786E732E63BD15007299F3 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		CC969C742E60857A00C8630A /* Sajda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sajda.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC969C772E60857A00C8630A /* SajdaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SajdaApp.swift; sourceTree = "<group>"; };
+		CC969C792E60857A00C8630A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CC969C7B2E60857D00C8630A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC969C7E2E60857D00C8630A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CC969C802E60857D00C8630A /* Sajda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sajda.entitlements; sourceTree = "<group>"; };
+		CC969C852E60857E00C8630A /* SajdaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SajdaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC969C892E60857E00C8630A /* SajdaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SajdaTests.swift; sourceTree = "<group>"; };
+		CC969C8F2E60857E00C8630A /* SajdaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SajdaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC969C932E60857E00C8630A /* SajdaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SajdaUITests.swift; sourceTree = "<group>"; };
+		CC969C952E60857E00C8630A /* SajdaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SajdaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CC969CA22E6085F200C8630A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC969CA62E60989F00C8630A /* PrayerTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTimeViewModel.swift; sourceTree = "<group>"; };
+		CC969CA82E6098C500C8630A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		CC9C2F002E61385B00BAE49A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CCE079702E6438100026054C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		CCE1BA2E2E61839E003AF03C /* UpdateSizeAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateSizeAction.swift; sourceTree = "<group>"; };
+		CCE1BA2F2E61839E003AF03C /* FluidMenuBarExtra.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FluidMenuBarExtra.swift; sourceTree = "<group>"; };
+		CCE1BA302E61839F003AF03C /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		CCE1BA312E61839F003AF03C /* FluidMenuBarExtraStatusItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FluidMenuBarExtraStatusItem.swift; sourceTree = "<group>"; };
+		CCE1BA322E61839F003AF03C /* FluidMenuBarExtraWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FluidMenuBarExtraWindow.swift; sourceTree = "<group>"; };
+		CCE1BA332E6183A0003AF03C /* RootViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewModifier.swift; sourceTree = "<group>"; };
+		CCE1BA442E6198C1003AF03C /* ManualLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualLocationView.swift; sourceTree = "<group>"; };
+		CCE1BA462E620757003AF03C /* StyledToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledToggle.swift; sourceTree = "<group>"; };
+		CCEC0E402E60A899001E9B1E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		CCEC0E442E60B08D001E9B1E /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		CCEC0E482E60B700001E9B1E /* StartupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupManager.swift; sourceTree = "<group>"; };
+		CCEC0E4E2E60D2EC001E9B1E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		CCED21852E65F9770066D0EB /* NavigationAnimation+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationAnimation+Custom.swift"; sourceTree = "<group>"; };
+		CCED21872E65FE650066D0EB /* AnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationType.swift; sourceTree = "<group>"; };
+		CCFD21D92E62BEEB00A80402 /* PrayerTimeCorrectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTimeCorrectionView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC969C712E60857A00C8630A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCEC0E3F2E60A3A0001E9B1E /* Adhan in Frameworks */,
+				CC07FC662E64122F00924451 /* NavigationStack in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC969C822E60857E00C8630A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC969C8C2E60857E00C8630A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC786E592E6369EA007299F3 /* TimeZoneLocate */ = {
+			isa = PBXGroup;
+			children = (
+				CC786E5A2E636A04007299F3 /* TimeZoneLocate.swift */,
+				CC786E5C2E636A58007299F3 /* timezones.json */,
+			);
+			path = TimeZoneLocate;
+			sourceTree = "<group>";
+		};
+		CC969C6B2E60857A00C8630A = {
+			isa = PBXGroup;
+			children = (
+				CC969C762E60857A00C8630A /* Sajda */,
+				CC969C882E60857E00C8630A /* SajdaTests */,
+				CC969C922E60857E00C8630A /* SajdaUITests */,
+				CC969C752E60857A00C8630A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC969C752E60857A00C8630A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC969C742E60857A00C8630A /* Sajda.app */,
+				CC969C852E60857E00C8630A /* SajdaTests.xctest */,
+				CC969C8F2E60857E00C8630A /* SajdaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC969C762E60857A00C8630A /* Sajda */ = {
+			isa = PBXGroup;
+			children = (
+				CC786E592E6369EA007299F3 /* TimeZoneLocate */,
+				CC969C772E60857A00C8630A /* SajdaApp.swift */,
+				CC969C792E60857A00C8630A /* ContentView.swift */,
+				CCE1BA442E6198C1003AF03C /* ManualLocationView.swift */,
+				CC969C7B2E60857D00C8630A /* Assets.xcassets */,
+				CC969C802E60857D00C8630A /* Sajda.entitlements */,
+				CC969C7D2E60857D00C8630A /* Preview Content */,
+				CC969CA22E6085F200C8630A /* Info.plist */,
+				CC786E712E63BB26007299F3 /* LanguageManager.swift */,
+				CC969CA62E60989F00C8630A /* PrayerTimeViewModel.swift */,
+				CC969CA82E6098C500C8630A /* SettingsView.swift */,
+				CCEC0E402E60A899001E9B1E /* MainView.swift */,
+				CCEC0E442E60B08D001E9B1E /* AboutView.swift */,
+				CCEC0E482E60B700001E9B1E /* StartupManager.swift */,
+				CCEC0E4E2E60D2EC001E9B1E /* NotificationManager.swift */,
+				CC9C2F002E61385B00BAE49A /* AppDelegate.swift */,
+				CCE1BA462E620757003AF03C /* StyledToggle.swift */,
+				CCE1BA212E618251003AF03C /* FluidMenuBar */,
+				CCFD21D92E62BEEB00A80402 /* PrayerTimeCorrectionView.swift */,
+				CC786E4D2E634B65007299F3 /* OnboardingView.swift */,
+				CC786E512E6353F1007299F3 /* ManualLocationSheetView.swift */,
+				CC786E532E6359E1007299F3 /* PrayerTimerMonitor.swift */,
+				CC786E552E635ADA007299F3 /* AlertWindowManager.swift */,
+				CC786E572E635B46007299F3 /* PrayerTimerAlertView.swift */,
+				CC786E5E2E637700007299F3 /* AdhanSound.swift */,
+				CC786E622E63787E007299F3 /* MenuBarTextMode.swift */,
+				CC786E642E638353007299F3 /* SajdaCalculationMethod.swift */,
+				CC786E662E638425007299F3 /* LocationSearchResult.swift */,
+				CC786E6E2E63B1CB007299F3 /* Localizable.strings */,
+				CC786E732E63BD15007299F3 /* VisualEffectView.swift */,
+				CC07FC5F2E63FD5800924451 /* LocationAndCalcSettingsView.swift */,
+				CC07FC612E63FF5100924451 /* SystemAndNotificationsSettingsView.swift */,
+				CCE079702E6438100026054C /* main.swift */,
+				CCED21852E65F9770066D0EB /* NavigationAnimation+Custom.swift */,
+				CCED21872E65FE650066D0EB /* AnimationType.swift */,
+				CC4659642E6629C000159A83 /* SajdaStepper.swift */,
+				043D56C439F548C39855A494 /* LocationService.swift */,
+				862B634C3A724FF3AD25CE2D /* PrayerCalculationService.swift */,
+				3CE3562F88BD4F28BC339FF8 /* MenuBarService.swift */,
+			);
+			path = Sajda;
+			sourceTree = "<group>";
+		};
+		CC969C7D2E60857D00C8630A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CC969C7E2E60857D00C8630A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CC969C882E60857E00C8630A /* SajdaTests */ = {
+			isa = PBXGroup;
+			children = (
+				CC969C892E60857E00C8630A /* SajdaTests.swift */,
+			);
+			path = SajdaTests;
+			sourceTree = "<group>";
+		};
+		CC969C922E60857E00C8630A /* SajdaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CC969C932E60857E00C8630A /* SajdaUITests.swift */,
+				CC969C952E60857E00C8630A /* SajdaUITestsLaunchTests.swift */,
+			);
+			path = SajdaUITests;
+			sourceTree = "<group>";
+		};
+		CCE1BA212E618251003AF03C /* FluidMenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				CCE1BA302E61839F003AF03C /* EventMonitor.swift */,
+				CCE1BA2F2E61839E003AF03C /* FluidMenuBarExtra.swift */,
+				CCE1BA312E61839F003AF03C /* FluidMenuBarExtraStatusItem.swift */,
+				CCE1BA322E61839F003AF03C /* FluidMenuBarExtraWindow.swift */,
+				CCE1BA332E6183A0003AF03C /* RootViewModifier.swift */,
+				CCE1BA2E2E61839E003AF03C /* UpdateSizeAction.swift */,
+			);
+			path = FluidMenuBar;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CC969C732E60857A00C8630A /* Sajda */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC969C992E60857E00C8630A /* Build configuration list for PBXNativeTarget "Sajda" */;
+			buildPhases = (
+				CC969C702E60857A00C8630A /* Sources */,
+				CC969C712E60857A00C8630A /* Frameworks */,
+				CC969C722E60857A00C8630A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sajda;
+			packageProductDependencies = (
+				CCEC0E3E2E60A3A0001E9B1E /* Adhan */,
+				CC07FC652E64122F00924451 /* NavigationStack */,
+			);
+			productName = Sajda;
+			productReference = CC969C742E60857A00C8630A /* Sajda.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CC969C842E60857E00C8630A /* SajdaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC969C9C2E60857E00C8630A /* Build configuration list for PBXNativeTarget "SajdaTests" */;
+			buildPhases = (
+				CC969C812E60857E00C8630A /* Sources */,
+				CC969C822E60857E00C8630A /* Frameworks */,
+				CC969C832E60857E00C8630A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC969C872E60857E00C8630A /* PBXTargetDependency */,
+			);
+			name = SajdaTests;
+			productName = SajdaTests;
+			productReference = CC969C852E60857E00C8630A /* SajdaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CC969C8E2E60857E00C8630A /* SajdaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC969C9F2E60857E00C8630A /* Build configuration list for PBXNativeTarget "SajdaUITests" */;
+			buildPhases = (
+				CC969C8B2E60857E00C8630A /* Sources */,
+				CC969C8C2E60857E00C8630A /* Frameworks */,
+				CC969C8D2E60857E00C8630A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC969C912E60857E00C8630A /* PBXTargetDependency */,
+			);
+			name = SajdaUITests;
+			productName = SajdaUITests;
+			productReference = CC969C8F2E60857E00C8630A /* SajdaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC969C6C2E60857A00C8630A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					CC969C732E60857A00C8630A = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					CC969C842E60857E00C8630A = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = CC969C732E60857A00C8630A;
+					};
+					CC969C8E2E60857E00C8630A = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = CC969C732E60857A00C8630A;
+					};
+				};
+			};
+			buildConfigurationList = CC969C6F2E60857A00C8630A /* Build configuration list for PBXProject "Sajda" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ar,
+				id,
+			);
+			mainGroup = CC969C6B2E60857A00C8630A;
+			packageReferences = (
+				CCEC0E3D2E60A3A0001E9B1E /* XCRemoteSwiftPackageReference "adhan-swift" */,
+				CC07FC642E64122F00924451 /* XCRemoteSwiftPackageReference "NavigationStack" */,
+			);
+			productRefGroup = CC969C752E60857A00C8630A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC969C732E60857A00C8630A /* Sajda */,
+				CC969C842E60857E00C8630A /* SajdaTests */,
+				CC969C8E2E60857E00C8630A /* SajdaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC969C722E60857A00C8630A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC786E6C2E63B1CB007299F3 /* Localizable.strings in Resources */,
+				CC786E5D2E636A58007299F3 /* timezones.json in Resources */,
+				CC969C7F2E60857D00C8630A /* Preview Assets.xcassets in Resources */,
+				CC969C7C2E60857D00C8630A /* Assets.xcassets in Resources */,
+				CC969CA32E6085F200C8630A /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC969C832E60857E00C8630A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC969C8D2E60857E00C8630A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC969C702E60857A00C8630A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC9C2F012E61385B00BAE49A /* AppDelegate.swift in Sources */,
+				CCE1BA3C2E61852B003AF03C /* FluidMenuBarExtraStatusItem.swift in Sources */,
+				CCE079712E6438100026054C /* main.swift in Sources */,
+				CCFD21DA2E62BEEB00A80402 /* PrayerTimeCorrectionView.swift in Sources */,
+				CC969CA72E60989F00C8630A /* PrayerTimeViewModel.swift in Sources */,
+				CC786E582E635B46007299F3 /* PrayerTimerAlertView.swift in Sources */,
+				CCE1BA472E620757003AF03C /* StyledToggle.swift in Sources */,
+				CC786E722E63BB26007299F3 /* LanguageManager.swift in Sources */,
+				CCE1BA452E6198C1003AF03C /* ManualLocationView.swift in Sources */,
+				CCED21882E65FE650066D0EB /* AnimationType.swift in Sources */,
+				CC07FC622E63FF5100924451 /* SystemAndNotificationsSettingsView.swift in Sources */,
+				CC786E632E63787E007299F3 /* MenuBarTextMode.swift in Sources */,
+				CCEC0E452E60B08D001E9B1E /* AboutView.swift in Sources */,
+				CC786E542E6359E1007299F3 /* PrayerTimerMonitor.swift in Sources */,
+				CC786E742E63BD15007299F3 /* VisualEffectView.swift in Sources */,
+				CC786E5F2E637700007299F3 /* AdhanSound.swift in Sources */,
+				CCE1BA3A2E61852B003AF03C /* EventMonitor.swift in Sources */,
+				CC4659652E6629C000159A83 /* SajdaStepper.swift in Sources */,
+				CCE1BA3D2E61852B003AF03C /* FluidMenuBarExtra.swift in Sources */,
+				CC969CA92E6098C600C8630A /* SettingsView.swift in Sources */,
+				CCE1BA3F2E61852B003AF03C /* FluidMenuBarExtraWindow.swift in Sources */,
+				CCEC0E4F2E60D2EC001E9B1E /* NotificationManager.swift in Sources */,
+				CC786E672E638425007299F3 /* LocationSearchResult.swift in Sources */,
+				CCED21862E65F9770066D0EB /* NavigationAnimation+Custom.swift in Sources */,
+				CC786E4E2E634B65007299F3 /* OnboardingView.swift in Sources */,
+				CC07FC602E63FD5800924451 /* LocationAndCalcSettingsView.swift in Sources */,
+				CC969C7A2E60857A00C8630A /* ContentView.swift in Sources */,
+				CCEC0E492E60B700001E9B1E /* StartupManager.swift in Sources */,
+				CCEC0E412E60A899001E9B1E /* MainView.swift in Sources */,
+				CC786E5B2E636A04007299F3 /* TimeZoneLocate.swift in Sources */,
+				CC786E652E638353007299F3 /* SajdaCalculationMethod.swift in Sources */,
+				CC969C782E60857A00C8630A /* SajdaApp.swift in Sources */,
+				CCE1BA3E2E61852B003AF03C /* UpdateSizeAction.swift in Sources */,
+				CCE1BA3B2E61852B003AF03C /* RootViewModifier.swift in Sources */,
+				CC786E522E6353F1007299F3 /* ManualLocationSheetView.swift in Sources */,
+				CC786E562E635ADA007299F3 /* AlertWindowManager.swift in Sources */,
+				92384C246D454D10896B7D69 /* LocationService.swift in Sources */,
+				14185A39E4A044A79F68124E /* PrayerCalculationService.swift in Sources */,
+				F039A1D238F14C25A9DBB0FF /* MenuBarService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC969C812E60857E00C8630A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC969C8A2E60857E00C8630A /* SajdaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC969C8B2E60857E00C8630A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC969C962E60857E00C8630A /* SajdaUITestsLaunchTests.swift in Sources */,
+				CC969C942E60857E00C8630A /* SajdaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC969C872E60857E00C8630A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC969C732E60857A00C8630A /* Sajda */;
+			targetProxy = CC969C862E60857E00C8630A /* PBXContainerItemProxy */;
+		};
+		CC969C912E60857E00C8630A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC969C732E60857A00C8630A /* Sajda */;
+			targetProxy = CC969C902E60857E00C8630A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CC786E6E2E63B1CB007299F3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC786E6D2E63B1CB007299F3 /* en */,
+				CC786E6F2E63B20E007299F3 /* ar */,
+				CC786E702E63B21D007299F3 /* id */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CC969C972E60857E00C8630A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CC969C982E60857E00C8630A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		CC969C9A2E60857E00C8630A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sajda/Sajda.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Sajda/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = NO;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikoshura.Sajda;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CC969C9B2E60857E00C8630A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sajda/Sajda.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Sajda/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = NO;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikoshura.Sajda;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		CC969C9D2E60857E00C8630A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikoshura.SajdaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sajda.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sajda";
+			};
+			name = Debug;
+		};
+		CC969C9E2E60857E00C8630A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikoshura.SajdaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sajda.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sajda";
+			};
+			name = Release;
+		};
+		CC969CA02E60857E00C8630A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikoshura.SajdaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Sajda;
+			};
+			name = Debug;
+		};
+		CC969CA12E60857E00C8630A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikoshura.SajdaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Sajda;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC969C6F2E60857A00C8630A /* Build configuration list for PBXProject "Sajda" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC969C972E60857E00C8630A /* Debug */,
+				CC969C982E60857E00C8630A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC969C992E60857E00C8630A /* Build configuration list for PBXNativeTarget "Sajda" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC969C9A2E60857E00C8630A /* Debug */,
+				CC969C9B2E60857E00C8630A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC969C9C2E60857E00C8630A /* Build configuration list for PBXNativeTarget "SajdaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC969C9D2E60857E00C8630A /* Debug */,
+				CC969C9E2E60857E00C8630A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC969C9F2E60857E00C8630A /* Build configuration list for PBXNativeTarget "SajdaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC969CA02E60857E00C8630A /* Debug */,
+				CC969CA12E60857E00C8630A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CC07FC642E64122F00924451 /* XCRemoteSwiftPackageReference "NavigationStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/indieSoftware/NavigationStack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		CCEC0E3D2E60A3A0001E9B1E /* XCRemoteSwiftPackageReference "adhan-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/batoulapps/adhan-swift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CC07FC652E64122F00924451 /* NavigationStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC07FC642E64122F00924451 /* XCRemoteSwiftPackageReference "NavigationStack" */;
+			productName = NavigationStack;
+		};
+		CCEC0E3E2E60A3A0001E9B1E /* Adhan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CCEC0E3D2E60A3A0001E9B1E /* XCRemoteSwiftPackageReference "adhan-swift" */;
+			productName = Adhan;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = CC969C6C2E60857A00C8630A /* Project object */;
+}

@@ -1,0 +1,60 @@
+// MARK: - PrayerTimerMonitor.swift
+// Monitors prayer times and shows an alert after a configurable delay.
+
+import SwiftUI
+import Combine
+
+class PrayerTimerMonitor {
+    @AppStorage("isPrayerTimerEnabled") private var isEnabled: Bool = false
+    @AppStorage("prayerTimerDuration") private var duration: Int = 5
+    
+    private var timer: Timer?
+    private var lastPrayerTimes: [String: Date]?
+    private var lastNextPrayerName: String?
+
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePrayerTimeUpdate), name: .prayerTimesUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(settingsChanged), name: UserDefaults.didChangeNotification, object: nil)
+    }
+
+    @objc private func handlePrayerTimeUpdate(notification: Notification) {
+        // Store the latest prayer data for later use
+        if let info = notification.userInfo {
+            lastPrayerTimes = info["prayerTimes"] as? [String: Date]
+            lastNextPrayerName = info["nextPrayerName"] as? String
+        }
+        rescheduleTimer()
+    }
+    
+    @objc private func settingsChanged() {
+        // Re-use stored prayer data when settings change
+        rescheduleTimer()
+    }
+    
+    private func rescheduleTimer() {
+        timer?.invalidate()
+
+        guard isEnabled,
+              let prayerTimes = lastPrayerTimes else {
+            return
+        }
+        
+        // Find the prayer time that most recently passed
+        guard let prayerThatJustPassed = prayerTimes.values
+                .filter({ $0 < Date() })
+                .max() else { return }
+
+        let triggerTime = prayerThatJustPassed.addingTimeInterval(TimeInterval(duration * 60))
+        
+        let timeUntilTrigger = triggerTime.timeIntervalSinceNow
+        guard timeUntilTrigger > 0 else { return }
+
+        timer = Timer.scheduledTimer(withTimeInterval: timeUntilTrigger, repeats: false) { _ in
+            AlertWindowManager.shared.showAlert()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
