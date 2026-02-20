@@ -68,6 +68,11 @@
 		WW00000000000100000000BA /* SajdaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = WW00000000000009000000FA /* SajdaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End Widget Build Files */
 		WW0000000000000D000000FABF /* SharedPrayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = WW0000000000000D000000FA /* SharedPrayerData.swift */; };
+
+/* Begin Adhan Alert Build Files */
+		AD0000000000000300000003 /* SystemAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0000000000000100000001 /* SystemAudioManager.swift */; };
+		AD0000000000000400000004 /* AdhanAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0000000000000200000002 /* AdhanAlertService.swift */; };
+/* End Adhan Alert Build Files */
 /* Begin PBXContainerItemProxy section */
 		CC969C862E60857E00C8630A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -161,10 +166,10 @@
 				AA00000000000001000000AA /* Notification+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions/Notification+Names.swift"; sourceTree = "<group>"; };
 		CCED21872E65FE650066D0EB /* AnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models/AnimationType.swift; sourceTree = "<group>"; };
 		CCFD21D92E62BEEB00A80402 /* PrayerTimeCorrectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/PrayerTimeCorrectionView.swift; sourceTree = "<group>"; };
-/* End PBXFileReference section */
 
+		AD0000000000000100000001 /* SystemAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/SystemAudioManager.swift; sourceTree = "<group>"; };
+		AD0000000000000200000002 /* AdhanAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/AdhanAlertService.swift; sourceTree = "<group>"; };
 
-/* Begin Widget File References */
 		WW00000000000009000000FA /* SajdaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SajdaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		WW0000000000000A000000FA /* SajdaWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SajdaWidgetBundle.swift; sourceTree = "<group>"; };
 		WW0000000000000B000000FA /* PrayerTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTimelineProvider.swift; sourceTree = "<group>"; };
@@ -172,7 +177,10 @@
 		WW0000000000000D000000FA /* SharedPrayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SharedPrayerData.swift; sourceTree = "<group>"; };
 		WW0000000000000E000000FA /* SajdaWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SajdaWidget.entitlements; sourceTree = "<group>"; };
 		WW0000000000000F000000FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-/* End Widget File References */
+/* End PBXFileReference section */
+
+
+
 /* Begin PBXFrameworksBuildPhase section */
 		CC969C712E60857A00C8630A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -282,6 +290,8 @@
 				043D56C439F548C39855A494 /* LocationService.swift */,
 				862B634C3A724FF3AD25CE2D /* PrayerCalculationService.swift */,
 				3CE3562F88BD4F28BC339FF8 /* MenuBarService.swift */,
+				AD0000000000000100000001 /* SystemAudioManager.swift */,
+				AD0000000000000200000002 /* AdhanAlertService.swift */,
 			);
 			path = Sajda;
 			sourceTree = "<group>";
@@ -531,6 +541,8 @@
 				CC786E672E638425007299F3 /* LocationSearchResult.swift in Sources */,
 				CCED21862E65F9770066D0EB /* NavigationAnimation+Custom.swift in Sources */,
 				AA00000000000002000000AA /* Notification+Names.swift in Sources */,
+				AD0000000000000300000003 /* SystemAudioManager.swift in Sources */,
+				AD0000000000000400000004 /* AdhanAlertService.swift in Sources */,
 				WW0000000000000D000000FABF /* SharedPrayerData.swift in Sources */,
 				CC786E4E2E634B65007299F3 /* OnboardingView.swift in Sources */,
 				CC07FC602E63FD5800924451 /* LocationAndCalcSettingsView.swift in Sources */,

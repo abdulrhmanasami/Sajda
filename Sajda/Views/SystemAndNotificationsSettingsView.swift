@@ -80,6 +80,32 @@ struct SystemAndNotificationsSettingsView: View {
                         Rectangle()
                             .fill(Color("DividerColor"))
                             .frame(height: 0.5)
+                        
+                        Group {
+                            Text("Persistent Adhan").font(.caption).foregroundColor(Color("SecondaryTextColor"))
+                            StyledToggle(label: "Enable Persistent Adhan", isOn: $vm.isPersistentAdhanEnabled)
+                            
+                            if vm.isPersistentAdhanEnabled {
+                                HStack {
+                                    Text("Override Volume").font(.subheadline)
+                                    Spacer()
+                                    Text("\(Int(vm.persistentAdhanVolume * 100))%")
+                                        .font(.caption)
+                                        .foregroundColor(Color("SecondaryTextColor"))
+                                        .frame(width: 35, alignment: .trailing)
+                                }
+                                Slider(value: $vm.persistentAdhanVolume, in: 0.1...1.0, step: 0.05)
+                                    .controlSize(.small)
+                                
+                                Text("Adhan will play at full volume, override mute, prevent sleep, and stop on any key press")
+                                    .font(.caption)
+                                    .foregroundColor(Color("SecondaryTextColor"))
+                            }
+                        }
+
+                        Rectangle()
+                            .fill(Color("DividerColor"))
+                            .frame(height: 0.5)
 
                         Group {
                             Text("Prayer Timer").font(.caption).foregroundColor(Color("SecondaryTextColor"))

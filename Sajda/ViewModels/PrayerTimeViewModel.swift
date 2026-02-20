@@ -50,6 +50,8 @@ class PrayerTimeViewModel: ObservableObject {
     @AppStorage("ishaCorrection") var ishaCorrection: Double = 0 { didSet { calculationService.ishaCorrection = ishaCorrection; calculationService.updatePrayerTimes() } }
     @AppStorage("adhanSound") var adhanSound: AdhanSound = .defaultBeep { didSet { calculationService.adhanSound = adhanSound } }
     @AppStorage("customAdhanSoundPath") var customAdhanSoundPath: String = "" { didSet { calculationService.customAdhanSoundPath = customAdhanSoundPath } }
+    @AppStorage("isPersistentAdhanEnabled") var isPersistentAdhanEnabled: Bool = false { didSet { calculationService.isPersistentAdhanEnabled = isPersistentAdhanEnabled } }
+    @AppStorage("persistentAdhanVolume") var persistentAdhanVolume: Double = 0.7 { didSet { calculationService.persistentAdhanVolume = Float(persistentAdhanVolume) } }
 
     @Published var menuBarTextMode: MenuBarTextMode {
         didSet {

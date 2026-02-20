@@ -29,6 +29,8 @@ class PrayerCalculationService: ObservableObject {
     var asrCorrection: Double = 0
     var maghribCorrection: Double = 0
     var ishaCorrection: Double = 0
+    var isPersistentAdhanEnabled: Bool = false
+    var persistentAdhanVolume: Float = 0.7
 
     // MARK: - Internal State
 
@@ -38,6 +40,7 @@ class PrayerCalculationService: ObservableObject {
     private var currentCoordinates: CLLocationCoordinate2D?
     private var locationTimeZone: TimeZone = .current
     private var adhanPlayer: NSSound?
+    private var lastPlayedPrayerName: String?
 
     /// The active calculation method.
     var method: SajdaCalculationMethod = .allCases[0]
@@ -115,6 +118,11 @@ class PrayerCalculationService: ObservableObject {
             
             // Push data to widget via App Group
             self.pushToWidget(allPrayers: allPrayerTimes)
+            
+            // Schedule sleep prevention for persistent Adhan
+            if self.isPersistentAdhanEnabled {
+                AdhanAlertService.shared.scheduleSleepPrevention(for: self.todayTimes)
+            }
         }
     }
 
@@ -192,13 +200,37 @@ class PrayerCalculationService: ObservableObject {
             }
         } else {
             countdown = "Now"
-            if adhanSound == .custom,
-               let soundPath = customAdhanSoundPath.removingPercentEncoding,
-               let soundURL = URL(string: soundPath),
-               FileManager.default.fileExists(atPath: soundURL.path) {
-                adhanPlayer = NSSound(contentsOf: soundURL, byReference: true)
-                adhanPlayer?.play()
+            
+            // Play Adhan sound
+            let currentPrayerName = nextPrayerName
+            if currentPrayerName != lastPlayedPrayerName {
+                lastPlayedPrayerName = currentPrayerName
+                
+                if isPersistentAdhanEnabled {
+                    // Persistent Adhan: full playback with volume override + key dismiss
+                    let soundURL: URL?
+                    if adhanSound == .custom,
+                       let soundPath = customAdhanSoundPath.removingPercentEncoding,
+                       let url = URL(string: soundPath) {
+                        soundURL = url
+                    } else {
+                        soundURL = nil
+                    }
+                    AdhanAlertService.shared.playAdhan(
+                        prayerName: currentPrayerName,
+                        soundURL: soundURL,
+                        overrideVolume: persistentAdhanVolume
+                    )
+                } else if adhanSound == .custom,
+                          let soundPath = customAdhanSoundPath.removingPercentEncoding,
+                          let soundURL = URL(string: soundPath),
+                          FileManager.default.fileExists(atPath: soundURL.path) {
+                    // Legacy: simple NSSound playback
+                    adhanPlayer = NSSound(contentsOf: soundURL, byReference: true)
+                    adhanPlayer?.play()
+                }
             }
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in self?.updateNextPrayer() }
         }
         onMenuTitleNeedsUpdate?()
