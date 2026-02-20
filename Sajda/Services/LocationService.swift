@@ -114,11 +114,18 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
 
         if city == "Custom Coordinate" {
             // Set temporary display while geocoding
-            self.locationStatusText = String(format: "Coord: %.2f, %.2f", coordinates.latitude, coordinates.longitude)
+            let preliminaryName = String(format: "Coord: %.2f, %.2f", coordinates.latitude, coordinates.longitude)
+            self.locationStatusText = preliminaryName
+
+            // R4-5: Save preliminary data BEFORE notifying, so if app crashes mid-geocode
+            // the custom location is still persisted on next launch
+            let preliminaryData: [String: Any] = ["name": preliminaryName, "latitude": coordinates.latitude, "longitude": coordinates.longitude]
+            UserDefaults.standard.set(preliminaryData, forKey: "manualLocationData")
+
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, _) in
                 guard let self = self else { return }
-                let resolvedName = placemarks?.first?.locality ?? String(format: "Coord: %.2f, %.2f", coordinates.latitude, coordinates.longitude)
+                let resolvedName = placemarks?.first?.locality ?? preliminaryName
                 DispatchQueue.main.async {
                     self.locationStatusText = resolvedName
                     let manualData: [String: Any] = ["name": resolvedName, "latitude": coordinates.latitude, "longitude": coordinates.longitude]

@@ -25,7 +25,7 @@ class PrayerTimeViewModel: ObservableObject {
     @Published var countdown: String = "--:--"
     @Published var locationStatusText: String = "Preparing prayer schedule..."
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
-    @Published var locationSearchQuery: String = "" { didSet { locationService.locationSearchQuery = locationSearchQuery } }
+    @Published var locationSearchQuery: String = ""
     @Published var locationSearchResults: [LocationSearchResult] = []
     @Published var isLocationSearching: Bool = false
     @Published var locationInfoText: String = ""
@@ -50,7 +50,15 @@ class PrayerTimeViewModel: ObservableObject {
     @AppStorage("ishaCorrection") var ishaCorrection: Double = 0 { didSet { calculationService.ishaCorrection = ishaCorrection; calculationService.updatePrayerTimes() } }
     @AppStorage("adhanSound") var adhanSound: AdhanSound = .defaultBeep { didSet { calculationService.adhanSound = adhanSound } }
     @AppStorage("customAdhanSoundPath") var customAdhanSoundPath: String = "" { didSet { calculationService.customAdhanSoundPath = customAdhanSoundPath } }
-    @AppStorage("isPersistentAdhanEnabled") var isPersistentAdhanEnabled: Bool = false { didSet { calculationService.isPersistentAdhanEnabled = isPersistentAdhanEnabled } }
+    @AppStorage("isPersistentAdhanEnabled") var isPersistentAdhanEnabled: Bool = false {
+        didSet {
+            calculationService.isPersistentAdhanEnabled = isPersistentAdhanEnabled
+            // R4-3: Clean up orphaned sleep assertions when toggled off
+            if !isPersistentAdhanEnabled {
+                AdhanAlertService.shared.cancelPersistentState()
+            }
+        }
+    }
     @AppStorage("persistentAdhanVolume") var persistentAdhanVolume: Double = 0.7 { didSet { calculationService.persistentAdhanVolume = Float(persistentAdhanVolume) } }
     @AppStorage("adhanOutputDeviceUID") var adhanOutputDeviceUID: String = "" { didSet { calculationService.adhanOutputDeviceUID = adhanOutputDeviceUID } }
 
@@ -98,12 +106,15 @@ class PrayerTimeViewModel: ObservableObject {
         calculationService.asrCorrection = asrCorrection
         calculationService.maghribCorrection = maghribCorrection
         calculationService.ishaCorrection = ishaCorrection
+        calculationService.useHanafiMadhhab = useHanafiMadhhab // R4-4: Was missing from init sync!
 
         syncMenuBarConfig()
         setupBindings()
 
         // Wire location → calculation
         locationService.onCoordinatesUpdated = { [weak self] coordinates, timeZone in
+            // R4-2: Forward location name to calculation service for widget
+            self?.calculationService.currentLocationName = self?.locationService.locationStatusText ?? "Unknown"
             self?.calculationService.updateCoordinates(coordinates, timeZone: timeZone)
             self?.menuBarService.setTimeZone(timeZone)
         }

@@ -44,6 +44,9 @@ class PrayerCalculationService: ObservableObject {
     private var lastPlayedPrayerKey: String?
     private var activeSecurityScopedURL: URL?
 
+    /// R4-2: Location name for widget — set by ViewModel when location changes.
+    var currentLocationName: String = "Unknown"
+
     /// Cached NumberFormatter to avoid re-creating every second in updateCountdown()
     private lazy var countdownNumberFormatter: NumberFormatter = {
         let nf = NumberFormatter()
@@ -234,6 +237,8 @@ class PrayerCalculationService: ObservableObject {
                     // Legacy: simple NSSound playback for custom sound
                     if let soundURL = resolveCustomSoundURL() {
                         adhanPlayer = NSSound(contentsOf: soundURL, byReference: false)
+                        // R4-1: Release security-scoped resource immediately after loading by value
+                        releaseSecurityScopedResource()
                         adhanPlayer?.play()
                     }
                 } else if adhanSound == .defaultBeep {
@@ -269,7 +274,8 @@ class PrayerCalculationService: ObservableObject {
     // MARK: - Widget Integration
 
     private func pushToWidget(allPrayers: [(name: String, time: Date)]) {
-        let locationName = UserDefaults.standard.string(forKey: "locationName") ?? "Unknown"
+        // R4-2: Use the actual location name instead of phantom "locationName" key
+        let locationName = currentLocationName
         let data = SharedPrayerData(
             prayerTimes: allPrayers.map { SharedPrayerData.PrayerEntry(name: $0.name, time: $0.time) },
             nextPrayerName: self.nextPrayerName,

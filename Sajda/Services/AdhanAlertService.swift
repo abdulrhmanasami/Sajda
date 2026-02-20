@@ -127,6 +127,16 @@ final class AdhanAlertService: NSObject, NSSoundDelegate {
             self?.createSleepAssertion()
         }
     }
+
+    /// R4-3: Cancels any scheduled sleep prevention and releases orphaned assertions.
+    /// Call this when `isPersistentAdhanEnabled` is toggled OFF.
+    func cancelPersistentState() {
+        sleepPreventionTimer?.invalidate()
+        sleepPreventionTimer = nil
+        if !isPlaying {
+            releaseSleepAssertion()
+        }
+    }
     
     // MARK: - NSSoundDelegate
     
