@@ -6,6 +6,7 @@ import Combine
 import Adhan
 import CoreLocation
 import SwiftUI
+import WidgetKit
 
 class PrayerCalculationService: ObservableObject {
 
@@ -111,6 +112,9 @@ class PrayerCalculationService: ObservableObject {
                     "nextPrayerName": self.nextPrayerName
                 ]
             )
+            
+            // Push data to widget via App Group
+            self.pushToWidget(allPrayers: allPrayerTimes)
         }
     }
 
@@ -217,5 +221,21 @@ class PrayerCalculationService: ObservableObject {
             adhanSound: self.adhanSound,
             customSoundPath: self.customAdhanSoundPath
         )
+    }
+
+    // MARK: - Widget Integration
+
+    private func pushToWidget(allPrayers: [(name: String, time: Date)]) {
+        let locationName = UserDefaults.standard.string(forKey: "locationName") ?? "Unknown"
+        let data = SharedPrayerData(
+            prayerTimes: allPrayers.map { SharedPrayerData.PrayerEntry(name: $0.name, time: $0.time) },
+            nextPrayerName: self.nextPrayerName,
+            locationName: locationName,
+            calculationMethod: method.name,
+            calculatedAt: Date(),
+            languageIdentifier: languageIdentifier
+        )
+        SharedDefaults.write(data)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

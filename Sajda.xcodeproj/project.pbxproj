@@ -59,6 +59,15 @@
 		CCFD21DA2E62BEEB00A80402 /* PrayerTimeCorrectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFD21D92E62BEEB00A80402 /* PrayerTimeCorrectionView.swift */; };
 /* End PBXBuildFile section */
 
+
+/* Begin Widget Build Files */
+		WW000000000000A0000000BA /* SajdaWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = WW0000000000000A000000FA /* SajdaWidgetBundle.swift */; };
+		WW000000000000B0000000BA /* PrayerTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = WW0000000000000B000000FA /* PrayerTimelineProvider.swift */; };
+		WW000000000000C0000000BA /* PrayerTimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = WW0000000000000C000000FA /* PrayerTimelineEntry.swift */; };
+		WW000000000000D0000000BA /* SharedPrayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = WW0000000000000D000000FA /* SharedPrayerData.swift */; };
+		WW00000000000100000000BA /* SajdaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = WW00000000000009000000FA /* SajdaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End Widget Build Files */
+		WW0000000000000D000000FABF /* SharedPrayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = WW0000000000000D000000FA /* SharedPrayerData.swift */; };
 /* Begin PBXContainerItemProxy section */
 		CC969C862E60857E00C8630A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -74,7 +83,28 @@
 			remoteGlobalIDString = CC969C732E60857A00C8630A;
 			remoteInfo = Sajda;
 		};
+		WW00000000000130000000DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC969C6C2E60857A00C8630A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = WW000000000000020000002A;
+			remoteInfo = SajdaWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		WW000000000000F0000000EA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				WW00000000000100000000BA /* SajdaWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		043D56C439F548C39855A494 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/LocationService.swift; sourceTree = "<group>"; };
@@ -133,6 +163,16 @@
 		CCFD21D92E62BEEB00A80402 /* PrayerTimeCorrectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/PrayerTimeCorrectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+
+/* Begin Widget File References */
+		WW00000000000009000000FA /* SajdaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SajdaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		WW0000000000000A000000FA /* SajdaWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SajdaWidgetBundle.swift; sourceTree = "<group>"; };
+		WW0000000000000B000000FA /* PrayerTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTimelineProvider.swift; sourceTree = "<group>"; };
+		WW0000000000000C000000FA /* PrayerTimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTimelineEntry.swift; sourceTree = "<group>"; };
+		WW0000000000000D000000FA /* SharedPrayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/SharedPrayerData.swift; sourceTree = "<group>"; };
+		WW0000000000000E000000FA /* SajdaWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SajdaWidget.entitlements; sourceTree = "<group>"; };
+		WW0000000000000F000000FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End Widget File References */
 /* Begin PBXFrameworksBuildPhase section */
 		CC969C712E60857A00C8630A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -157,6 +197,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		WW000000000000070000007A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -174,6 +221,7 @@
 			children = (
 				CC969C762E60857A00C8630A /* Sajda */,
 				CC969C882E60857E00C8630A /* SajdaTests */,
+				WW000000000000E0000000GA /* SajdaWidget */,
 				CC969C922E60857E00C8630A /* SajdaUITests */,
 				CC969C752E60857A00C8630A /* Products */,
 			);
@@ -185,6 +233,7 @@
 				CC969C742E60857A00C8630A /* Sajda.app */,
 				CC969C852E60857E00C8630A /* SajdaTests.xctest */,
 				CC969C8F2E60857E00C8630A /* SajdaUITests.xctest */,
+				WW00000000000009000000FA /* SajdaWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,6 +276,7 @@
 				CCE079702E6438100026054C /* main.swift */,
 				CCED21852E65F9770066D0EB /* NavigationAnimation+Custom.swift */,
 				AA00000000000001000000AA /* Notification+Names.swift */,
+				WW0000000000000D000000FA /* SharedPrayerData.swift */,
 				CCED21872E65FE650066D0EB /* AnimationType.swift */,
 				CC4659642E6629C000159A83 /* SajdaStepper.swift */,
 				043D56C439F548C39855A494 /* LocationService.swift */,
@@ -274,6 +324,18 @@
 			path = Vendors/FluidMenuBar;
 			sourceTree = "<group>";
 		};
+		WW000000000000E0000000GA /* SajdaWidget */ = {
+			isa = PBXGroup;
+			children = (
+				WW0000000000000A000000FA /* SajdaWidgetBundle.swift */,
+				WW0000000000000B000000FA /* PrayerTimelineProvider.swift */,
+				WW0000000000000C000000FA /* PrayerTimelineEntry.swift */,
+				WW0000000000000E000000FA /* SajdaWidget.entitlements */,
+				WW0000000000000F000000FA /* Info.plist */,
+			);
+			path = SajdaWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -284,10 +346,12 @@
 				CC969C702E60857A00C8630A /* Sources */,
 				CC969C712E60857A00C8630A /* Frameworks */,
 				CC969C722E60857A00C8630A /* Resources */,
+				WW000000000000F0000000EA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+							WW00000000000120000000DA /* PBXTargetDependency */,
 			);
 			name = Sajda;
 			packageProductDependencies = (
@@ -334,6 +398,23 @@
 			productReference = CC969C8F2E60857E00C8630A /* SajdaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		WW000000000000020000002A /* SajdaWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = WW000000000000030000003A /* Build configuration list for PBXNativeTarget "SajdaWidgetExtension" */;
+			buildPhases = (
+				WW000000000000060000006A /* Sources */,
+				WW000000000000070000007A /* Frameworks */,
+				WW000000000000080000008A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SajdaWidgetExtension;
+			productName = SajdaWidgetExtension;
+			productReference = WW00000000000009000000FA /* SajdaWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -379,6 +460,7 @@
 				CC969C732E60857A00C8630A /* Sajda */,
 				CC969C842E60857E00C8630A /* SajdaTests */,
 				CC969C8E2E60857E00C8630A /* SajdaUITests */,
+				WW000000000000020000002A /* SajdaWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -404,6 +486,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CC969C8D2E60857E00C8630A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		WW000000000000080000008A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -442,6 +531,7 @@
 				CC786E672E638425007299F3 /* LocationSearchResult.swift in Sources */,
 				CCED21862E65F9770066D0EB /* NavigationAnimation+Custom.swift in Sources */,
 				AA00000000000002000000AA /* Notification+Names.swift in Sources */,
+				WW0000000000000D000000FABF /* SharedPrayerData.swift in Sources */,
 				CC786E4E2E634B65007299F3 /* OnboardingView.swift in Sources */,
 				CC07FC602E63FD5800924451 /* LocationAndCalcSettingsView.swift in Sources */,
 				CC969C7A2E60857A00C8630A /* ContentView.swift in Sources */,
@@ -477,6 +567,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		WW000000000000060000006A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				WW000000000000A0000000BA /* SajdaWidgetBundle.swift in Sources */,
+				WW000000000000B0000000BA /* PrayerTimelineProvider.swift in Sources */,
+				WW000000000000C0000000BA /* PrayerTimelineEntry.swift in Sources */,
+				WW000000000000D0000000BA /* SharedPrayerData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -489,6 +590,11 @@
 			isa = PBXTargetDependency;
 			target = CC969C732E60857A00C8630A /* Sajda */;
 			targetProxy = CC969C902E60857E00C8630A /* PBXContainerItemProxy */;
+		};
+		WW00000000000120000000DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = WW000000000000020000002A /* SajdaWidgetExtension */;
+			targetProxy = WW00000000000130000000DA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -747,6 +853,58 @@
 			};
 			name = Release;
 		};
+		WW000000000000040000004A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SajdaWidget/SajdaWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SajdaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sajda Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikoshura.Sajda.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		WW000000000000050000005A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SajdaWidget/SajdaWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SajdaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sajda Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ikoshura.Sajda.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -782,6 +940,15 @@
 			buildConfigurations = (
 				CC969CA02E60857E00C8630A /* Debug */,
 				CC969CA12E60857E00C8630A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		WW000000000000030000003A /* Build configuration list for PBXNativeTarget "SajdaWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				WW000000000000040000004A /* Debug */,
+				WW000000000000050000005A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
